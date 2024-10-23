@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "1117785_1080p_Energy_1280x720 1.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "1117785_1080p_Energy_1280x720 1@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "1117785_1080p_Energy_1280x720 1@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
