@@ -47,6 +47,8 @@ struct OnBoarding2View: View {
                         .foregroundColor(.onboardingGray)
                 }
                 
+                
+                //Professions List
                 if #available(iOS 16.0, *) {
                     List(professions) { profession in
                         HStack {
@@ -74,6 +76,7 @@ struct OnBoarding2View: View {
                 }
                 .hidden()
                 
+                // Button styling
                 Button {
                     if selectedProfession == nil {
                         showAlert = true
@@ -101,7 +104,6 @@ struct OnBoarding2View: View {
                 Spacer()
                 
             }
-            
         }
         .navigationBarBackButtonHidden()
     }

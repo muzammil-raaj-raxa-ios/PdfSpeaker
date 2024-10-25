@@ -38,6 +38,8 @@ struct OnBoarding3View: View {
                 }
                 .padding(.bottom, 20)
                 
+                
+                // Name textfield
                 if #available(iOS 16.0, *) {
                     TextField("Enter your name", text: $name)
                         .font(.system(size: 14))
@@ -64,6 +66,8 @@ struct OnBoarding3View: View {
                 }
                 .hidden()
                 
+                
+                // Next button
                 Button {
                     if name.trimmingCharacters(in: .whitespaces).count < 3 {
                         showAlert = true
@@ -88,8 +92,6 @@ struct OnBoarding3View: View {
                         dismissButton: .default(Text(("Ok")))
                     )
                 }
-                
-                
             }
         }
         .navigationBarBackButtonHidden()

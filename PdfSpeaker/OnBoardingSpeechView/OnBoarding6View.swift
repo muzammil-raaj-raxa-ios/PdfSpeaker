@@ -21,8 +21,11 @@ struct OnBoarding6View: View {
     @State private var words: [String] = []
     @State private var currentWordIndex = -1
     @State private var isAvatarViewShowing: Bool = false
+    @State private var isSpeedViewShowing: Bool = false
     
     let speechSynthesizer = AVSpeechSynthesizer()
+    
+    //formatted speech text
     var speechText: String {
             """
             Hi John Smith, a seasoned businessman at 35 years old, embodies a blend of strategic foresight and entrepreneurial zeal. With a career rooted in innovation and growth, John has carved a niche in the competitive landscape of business.
@@ -32,10 +35,12 @@ struct OnBoarding6View: View {
             John's commitment to excellence extends beyond profits, as he places equal emphasis on fostering a positive.
             """
     }
+    
     var isCompleted: Bool {
         return elapsedTime >= totalTime
     }
     
+    // to chech and play sound even if device is muted
     init() {
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .spokenAudio, options: .mixWithOthers)
@@ -72,7 +77,7 @@ struct OnBoarding6View: View {
                     }
                     
                     
-                    
+                    // Speech Text
                     VStack {
                         if #available(iOS 16.0, *) {
                             TextHighlightedView(
@@ -91,6 +96,7 @@ struct OnBoarding6View: View {
                         
                         Spacer()
                         
+                        // Remaining time, progress view and total time
                         VStack {
                             HStack {
                                 Text(formatTime(elapsedTime))
@@ -115,7 +121,9 @@ struct OnBoarding6View: View {
                             .padding()
                             
                             
+                            
                             HStack {
+                                // Select avatar
                                 if #available(iOS 16.0, *) {
                                     Button {
                                         isAvatarViewShowing.toggle()
@@ -123,7 +131,7 @@ struct OnBoarding6View: View {
                                         VStack(spacing: 0) {
                                             Image(uiImage: avatarImage)
                                                 .resizable()
-                                                .frame(width: 22, height: 22)
+                                                .frame(width: 27, height: 27)
                                                 .clipShape(Circle())
                                                 .overlay(
                                                     Circle().stroke(Color.onboardingLightGreen, lineWidth: 2)
@@ -137,12 +145,14 @@ struct OnBoarding6View: View {
                                     .frame(alignment: .leading)
                                     .sheet(isPresented: $isAvatarViewShowing) {
                                         SelectAvatarView(selectedAvatarImage: $avatarImage)
-                                            .presentationDetents([.height(440)])
+                                            .presentationDetents([.height(470)])
                                             .presentationDragIndicator(.visible)
                                             .cornerRadius(20)
                                     }
                                 }
                                 
+                                
+                                // Pause and play button
                                 Button {
                                     toggleSpeech()
                                 } label: {
@@ -154,23 +164,33 @@ struct OnBoarding6View: View {
                                 .cornerRadius(30)
                                 .frame(maxWidth: .infinity)
                                 
-                                Button {
-                                    
-                                } label: {
-                                    VStack(spacing: 0) {
-                                        Text("1.0x")
-                                            .foregroundColor(.onboardingGray)
-                                            .font(.system(size: 8))
-                                            .fontWeight(.semibold)
-                                            .padding(6)
-                                            .background(Circle().stroke(Color.onboardingLightGreen, lineWidth: 2))
-                                        
-                                        Text("Speed")
-                                            .foregroundColor(.onboardingGray)
-                                            .font(.system(size: 10))
+                                
+                                // select speed button
+                                if #available(iOS 16.0, *) {
+                                    Button {
+                                        isSpeedViewShowing = true
+                                    } label: {
+                                        VStack(spacing: 0) {
+                                            Text("1.0x")
+                                                .foregroundColor(.onboardingGray)
+                                                .font(.system(size: 8))
+                                                .fontWeight(.semibold)
+                                                .padding(7)
+                                                .background(Circle().stroke(Color.onboardingLightGreen, lineWidth: 2))
+                                            
+                                            Text("Speed")
+                                                .foregroundColor(.onboardingGray)
+                                                .font(.system(size: 10))
+                                        }
+                                    }
+                                    .frame(alignment: .trailing)
+                                    .sheet(isPresented: $isSpeedViewShowing) {
+                                        SelectSpeedView()
+                                            .presentationDetents([.height(440)])
+                                            .presentationDragIndicator(.visible)
+                                            .cornerRadius(20)
                                     }
                                 }
-                                .frame(alignment: .trailing)
                             }
                             .padding()
                         }
@@ -180,6 +200,8 @@ struct OnBoarding6View: View {
                     .cornerRadius(12)
                     .padding()
                     
+                    
+                    // Next button
                     Button {
                         
                     } label: {
@@ -200,9 +222,6 @@ struct OnBoarding6View: View {
                             dismissButton: .default(Text(("Ok")))
                         )
                     }
-                    
-                    
-                    
                     Spacer()
                 }
             }
@@ -220,6 +239,8 @@ extension OnBoarding6View {
         var delegate: SpeechDelegate?
     }
     
+    
+    // function to play and pause
     func toggleSpeech() {
         if isSpeaking {
             if speechSynthesizer.isSpeaking {

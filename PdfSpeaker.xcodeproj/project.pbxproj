@@ -23,6 +23,8 @@
 		9AA2EFED2CCA66CF00B1636B /* TextHighlightedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA2EFEC2CCA66CF00B1636B /* TextHighlightedView.swift */; };
 		9AAA6B1A2CCB641C00420B09 /* SelectAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAA6B192CCB641C00420B09 /* SelectAvatarView.swift */; };
 		9AAA6B1C2CCB6F2900420B09 /* AvatarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAA6B1B2CCB6F2900420B09 /* AvatarModel.swift */; };
+		9AAA6B1E2CCB9D4D00420B09 /* SelectSpeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAA6B1D2CCB9D4D00420B09 /* SelectSpeedView.swift */; };
+		9AAA6B202CCBC8F400420B09 /* SpeechWaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAA6B1F2CCBC8F400420B09 /* SpeechWaveView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +45,8 @@
 		9AA2EFEC2CCA66CF00B1636B /* TextHighlightedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextHighlightedView.swift; sourceTree = "<group>"; };
 		9AAA6B192CCB641C00420B09 /* SelectAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAvatarView.swift; sourceTree = "<group>"; };
 		9AAA6B1B2CCB6F2900420B09 /* AvatarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarModel.swift; sourceTree = "<group>"; };
+		9AAA6B1D2CCB9D4D00420B09 /* SelectSpeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSpeedView.swift; sourceTree = "<group>"; };
+		9AAA6B1F2CCBC8F400420B09 /* SpeechWaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechWaveView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +119,8 @@
 				9AA2EFEA2CCA65A200B1636B /* SpeechDelegate.swift */,
 				9AA2EFEC2CCA66CF00B1636B /* TextHighlightedView.swift */,
 				9AAA6B192CCB641C00420B09 /* SelectAvatarView.swift */,
+				9AAA6B1D2CCB9D4D00420B09 /* SelectSpeedView.swift */,
+				9AAA6B1F2CCBC8F400420B09 /* SpeechWaveView.swift */,
 			);
 			path = OnBoardingSpeechView;
 			sourceTree = "<group>";
@@ -197,8 +203,10 @@
 				9A0289E22CC912C000421EB6 /* OnBoarding3View.swift in Sources */,
 				9A0289EA2CC929DA00421EB6 /* AgeModel.swift in Sources */,
 				9A0289E02CC90F2E00421EB6 /* ProfessionModel.swift in Sources */,
+				9AAA6B202CCBC8F400420B09 /* SpeechWaveView.swift in Sources */,
 				9A0289E82CC928C300421EB6 /* OnBoarding5View.swift in Sources */,
 				9A0289E42CC920CA00421EB6 /* OnBoarding4View.swift in Sources */,
+				9AAA6B1E2CCB9D4D00420B09 /* SelectSpeedView.swift in Sources */,
 				9AA2EFEB2CCA65A200B1636B /* SpeechDelegate.swift in Sources */,
 				9A0289D72CC8DB5900421EB6 /* OnBoarding1View.swift in Sources */,
 				9AA2EFED2CCA66CF00B1636B /* TextHighlightedView.swift in Sources */,

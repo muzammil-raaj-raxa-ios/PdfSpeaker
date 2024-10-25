@@ -46,6 +46,8 @@ struct OnBoarding5View: View {
                         .foregroundColor(.onboardingGray)
                 }
                 
+                
+                // Age list
                 if #available(iOS 16.0, *) {
                     List(ages) { age in
                         HStack {
@@ -75,6 +77,7 @@ struct OnBoarding5View: View {
                 .hidden()
                 
                 
+                // Next Button
                 Button {
                     if selectedAge == nil {
                         showAlert = true

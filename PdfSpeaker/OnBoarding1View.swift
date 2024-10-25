@@ -13,6 +13,8 @@ struct OnBoarding1View: View {
     var body: some View {
         NavigationView {
             ZStack {
+                
+                // Onboarding Image with Linear Gradient
                 VStack {
                     Image("onboarding")
                         .resizable()
@@ -51,9 +53,13 @@ struct OnBoarding1View: View {
                     Spacer()
                     Spacer()
                     Spacer()
+                
                     
+                    // Star Image
                     Image("onboardingStars")
                     
+                    
+                    // Welcome and Greeting text
                     VStack(spacing: 5) {
                         Text("Welcome")
                             .font(.system(size: 30))
@@ -83,6 +89,8 @@ struct OnBoarding1View: View {
                     }
                     .hidden()
                     
+                    
+                    // Button styling
                         Button {
                             isNavigationTrue = true
                         } label: {
@@ -98,7 +106,6 @@ struct OnBoarding1View: View {
                     
                 }
             }
-//            .background(Color.white)
         }
     }
 }

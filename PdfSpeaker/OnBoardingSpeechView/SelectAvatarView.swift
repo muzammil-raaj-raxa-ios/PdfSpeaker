@@ -29,6 +29,7 @@ struct SelectAvatarView: View {
                 .padding()
                 .padding(.top, 20)
             
+            // 2x3 grid layout button
             VStack(spacing: 25) {
                 HStack(spacing: 25) {
                     ForEach(0..<3, id: \.self) { index in
@@ -94,6 +95,8 @@ struct SelectAvatarView: View {
                     }
                 }
                 
+                
+                // Continue button
                 Button {
                     dismiss()
                 } label: {

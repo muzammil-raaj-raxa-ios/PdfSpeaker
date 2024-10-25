@@ -43,6 +43,8 @@ struct OnBoarding4View: View {
                         .foregroundColor(.onboardingGray)
                 }
                 
+                
+                // Gender List
                 if #available(iOS 16.0, *) {
                     List(genders) { gender in
                         HStack {
@@ -70,6 +72,8 @@ struct OnBoarding4View: View {
                 }
                 .hidden()
                 
+                
+                // Next Button
                 Button {
                     if selectedGender == nil {
                         showAlert = true
