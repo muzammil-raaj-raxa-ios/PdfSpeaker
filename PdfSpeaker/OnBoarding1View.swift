@@ -16,7 +16,7 @@ struct OnBoarding1View: View {
                 VStack {
                     Image("onboarding")
                         .resizable()
-                        .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height * 0.5)
+                        .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height * 0.6)
                 }
                 .overlay(
                     VStack {
@@ -28,7 +28,7 @@ struct OnBoarding1View: View {
                         LinearGradient(gradient: Gradient(colors: [Color.white.opacity(0.0), Color.white.opacity(1.0)]), startPoint: .top, endPoint: .bottom)
                             .frame(height: 160)
                     }
-                        .frame(maxHeight: 500)
+                        .frame(maxHeight: 600)
                 )
                 .frame(maxHeight: .infinity, alignment: .top)
                 
@@ -57,11 +57,18 @@ struct OnBoarding1View: View {
                     VStack(spacing: 5) {
                         Text("Welcome")
                             .font(.system(size: 30))
-                            .fontWeight(.bold) +
-                        Text(" to PDF Speaker")
+                            .fontWeight(.bold)
+                            .foregroundColor(.blackBtn) +
+                        
+                        Text(" to PDF")
                             .font(.system(size: 20))
                             .fontWeight(.bold)
-                            .foregroundColor(.black)
+                            .foregroundColor(.blackBtn) +
+                        
+                        Text(" Speaker")
+                            .font(.system(size: 20))
+                            .fontWeight(.bold)
+                            .foregroundColor(.blackBtn)
                         
                         Text("Read anything aloud in the highest\nquality voices.")
                             .font(.system(size: 16))
@@ -82,7 +89,7 @@ struct OnBoarding1View: View {
                             Text("Next")
                                 .font(.system(size: 14))
                                 .fontWeight(.medium)
-                                .foregroundColor(.white)
+                                .foregroundColor(.blackBtnText)
                                 .frame(maxWidth: .infinity, maxHeight: 60)
                         }
                         .background(Color.blackBtn)
@@ -91,7 +98,7 @@ struct OnBoarding1View: View {
                     
                 }
             }
-            .background(Color.white)
+//            .background(Color.white)
         }
     }
 }

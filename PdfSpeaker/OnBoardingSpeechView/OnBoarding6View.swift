@@ -9,7 +9,8 @@ import SwiftUI
 import AVFoundation
 
 struct OnBoarding6View: View {
-    //    @State private var selectedAge: AgeModel?
+    @StateObject private var speechDelegateWrapper = SpeechDelegateWrapper()
+    @State private var avatarImage: UIImage = UIImage(named: "avatar1")!
     @State private var isNavigationTrue = false
     @State private var showAlert = false
     @State private var progress = 0.0
@@ -17,11 +18,32 @@ struct OnBoarding6View: View {
     @State private var totalTime: Double = 0.0
     @State private var isSpeaking = false
     @State private var timer: Timer? = nil
-    @State private var currentWordIndex = 0
-    
-    @State private var speechText = "Hi John Smith, a seasoned businessman at 35 years old, embodies a blend of strategic foresight and entrepreneurial zeal. With a career rooted in innovation and growth, John has carved a niche in the competitive landscape of business.\n\nHis journey began with a fervent curiosity for market dynamics and a knack for identifying emerging trends. Over the years, he has honed his skills in leadership and decision-making, navigating challenges with resilience and a forward-thinking mindset.\n\nJohn's commitment to excellence extends beyond profits, as he places equal emphasis on fostering a positive. "
+    @State private var words: [String] = []
+    @State private var currentWordIndex = -1
+    @State private var isAvatarViewShowing: Bool = false
     
     let speechSynthesizer = AVSpeechSynthesizer()
+    var speechText: String {
+            """
+            Hi John Smith, a seasoned businessman at 35 years old, embodies a blend of strategic foresight and entrepreneurial zeal. With a career rooted in innovation and growth, John has carved a niche in the competitive landscape of business.
+            
+            His journey began with a fervent curiosity for market dynamics and a knack for identifying emerging trends. Over the years, he has honed his skills in leadership and decision-making, navigating challenges with resilience and a forward-thinking mindset.
+            
+            John's commitment to excellence extends beyond profits, as he places equal emphasis on fostering a positive.
+            """
+    }
+    var isCompleted: Bool {
+        return elapsedTime >= totalTime
+    }
+    
+    init() {
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .spokenAudio, options: .mixWithOthers)
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            print("Failed to set audio session category: \(error)")
+        }
+    }
     
     var body: some View {
         NavigationView {
@@ -53,15 +75,18 @@ struct OnBoarding6View: View {
                     
                     VStack {
                         if #available(iOS 16.0, *) {
-                            Text(speechText)
-                                .font(.system(size: 16))
-                                .fontWeight(.regular)
-                                .padding()
-                                .padding([.leading, .trailing], 20)
-                                .multilineTextAlignment(.leading)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .frame(height: geometry.size.height * 0.5)
-                                .lineLimit(nil)
+                            TextHighlightedView(
+                                words: words,
+                                currentWordIndex: currentWordIndex,
+                                speechText: speechText
+                            )
+                            .font(.system(size: 16))
+                            .fontWeight(.regular)
+                            .padding()
+                            .padding([.leading, .trailing], 20)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .frame(height: geometry.size.height * 0.5)
+                            .multilineTextAlignment(.leading)
                         }
                         
                         Spacer()
@@ -91,24 +116,32 @@ struct OnBoarding6View: View {
                             
                             
                             HStack {
-                                Button {
-                                    
-                                } label: {
-                                    VStack(spacing: 0) {
-                                        Image("avatar")
-                                            .resizable()
-                                            .frame(width: 22, height: 22)
-                                            .clipShape(Circle())
-                                            .overlay(
-                                                Circle().stroke(Color.onboardingLightGreen, lineWidth: 2)
-                                            )
-                                        
-                                        Text("Voice")
-                                            .foregroundColor(.onboardingGray)
-                                            .font(.system(size: 10))
+                                if #available(iOS 16.0, *) {
+                                    Button {
+                                        isAvatarViewShowing.toggle()
+                                    } label: {
+                                        VStack(spacing: 0) {
+                                            Image(uiImage: avatarImage)
+                                                .resizable()
+                                                .frame(width: 22, height: 22)
+                                                .clipShape(Circle())
+                                                .overlay(
+                                                    Circle().stroke(Color.onboardingLightGreen, lineWidth: 2)
+                                                )
+                                            
+                                            Text("Voice")
+                                                .foregroundColor(.onboardingGray)
+                                                .font(.system(size: 10))
+                                        }
+                                    }
+                                    .frame(alignment: .leading)
+                                    .sheet(isPresented: $isAvatarViewShowing) {
+                                        SelectAvatarView(selectedAvatarImage: $avatarImage)
+                                            .presentationDetents([.height(440)])
+                                            .presentationDragIndicator(.visible)
+                                            .cornerRadius(20)
                                     }
                                 }
-                                .frame(alignment: .leading)
                                 
                                 Button {
                                     toggleSpeech()
@@ -173,8 +206,18 @@ struct OnBoarding6View: View {
                     Spacer()
                 }
             }
+            .onAppear {
+                words = preprocessText(speechText)
+            }
         }
         .navigationBarBackButtonHidden()
+    }
+    
+}
+
+extension OnBoarding6View {
+    class SpeechDelegateWrapper: ObservableObject {
+        var delegate: SpeechDelegate?
     }
     
     func toggleSpeech() {
@@ -197,35 +240,111 @@ struct OnBoarding6View: View {
     
     func speakText() {
         elapsedTime = 0.0
-        let speechUtterance = AVSpeechUtterance(string: speechText)
-        speechUtterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        currentWordIndex = -1
         
+        do {
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            print("Failed to activate audio session: \(error)")
+        }
+        
+        let utterance = AVSpeechUtterance(string: speechText)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         let speechRate: Float = 0.5
-        speechUtterance.rate = speechRate
+        utterance.rate = speechRate
         
-        let wordsCount = Double(speechText.components(separatedBy: " ").count)
+        // Improve speech quality
+        utterance.volume = 1.0
+        utterance.pitchMultiplier = 1.0
+        utterance.prefersAssistiveTechnologySettings = false
         
-        let adjustedSpeedRate = speechRate == AVSpeechUtteranceDefaultSpeechRate ? 170 : 170 * Double(speechRate / AVSpeechUtteranceDefaultSpeechRate)
-        totalTime = (wordsCount / adjustedSpeedRate) * 60
-
+        // Add natural pauses
+        utterance.preUtteranceDelay = 0.2
+        utterance.postUtteranceDelay = 0.2
         
-        print("Total time: \(totalTime)")
+        words = preprocessText(speechText)
         
-        speechSynthesizer.speak(speechUtterance)
+        // Calculate duration before starting speech
+        totalTime = calculateSpeechDuration(text: speechText, rate: speechRate)
+        print("Debug: Initial total time calculation: \(totalTime)")
+        
+        speechDelegateWrapper.delegate = SpeechDelegate(
+            words: words,
+            originalText: speechText
+        ) { index in
+            self.currentWordIndex = index
+        }
+        
+        speechSynthesizer.delegate = speechDelegateWrapper.delegate
+        speechSynthesizer.speak(utterance)
         startTimer()
+    }
+    
+    func calculateSpeechDuration(text: String, rate: Float) -> Double {
+        let wordsCount = Double(text.components(separatedBy: .whitespaces)
+            .filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+            .count)
+        
+        print("Debug: Words count in calculation: \(wordsCount)")
+        
+        let baseWPM: Double = 170.0
+        let adjustedWPM = baseWPM * (Double(rate) * 2.0)
+        
+        // Calculate minutes needed for speaking
+        let speakingMinutes = wordsCount / adjustedWPM
+        
+        // Convert to seconds
+        var totalSeconds = speakingMinutes * 60.0
+        
+        // Add time for punctuation pauses (reduced pause time)
+        let punctuationMarks = CharacterSet(charactersIn: ",.!?")
+        let punctuationCount = Double(text.unicodeScalars.filter { punctuationMarks.contains($0) }.count)
+        let pauseTimePerPunctuation = 0.15 // Reduced from 0.2 to match actual pauses
+        let pauseTime = punctuationCount * pauseTimePerPunctuation
+        
+        totalSeconds += pauseTime
+        
+        // Reduced buffer time
+        totalSeconds += 1.0
+        
+        print("Debug: Calculated total seconds: \(totalSeconds)")
+        print("Debug: Speaking minutes: \(speakingMinutes)")
+        print("Debug: Pause time: \(pauseTime)")
+        
+        return max(totalSeconds, 1.0)
+    }
+    
+    func preprocessText(_ text: String) -> [String] {
+        return text.components(separatedBy: .newlines)
+            .flatMap { paragraph -> [String] in
+                let words = paragraph.components(separatedBy: .whitespaces)
+                    .filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+                return words.isEmpty ? [] : words + (paragraph.hasSuffix("\n") ? ["\n"] : [])
+            }
     }
     
     func startTimer() {
         stopTimer()
+        
+        if totalTime <= 0 {
+            totalTime = calculateSpeechDuration(text: speechText, rate: 0.5)
+            print("Debug: Corrected total time: \(totalTime)")
+        }
+        
         timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
-            elapsedTime += 0.1
-            progress = min(elapsedTime / totalTime, 1.0)
-            
-            print("Elapsed Time: \(elapsedTime), Progress: \(progress)")
-            
-            if elapsedTime >= totalTime {
-                stopTimer()
-                isSpeaking = false
+            if self.elapsedTime < self.totalTime {
+                self.elapsedTime += 0.1
+                
+                // Ensure progress never exceeds 1.0
+                self.progress = min(self.elapsedTime / self.totalTime, 1.0)
+                
+                // Debug timing information
+                if Int(self.elapsedTime * 10) % 50 == 0 { // Print every 5 seconds
+                    print("Debug: Current progress - Elapsed: \(self.formatTime(self.elapsedTime)), Total: \(self.formatTime(self.totalTime)), Progress: \(self.progress)")
+                }
+            } else {
+                self.stopTimer()
+                self.isSpeaking = false
             }
         }
     }
@@ -241,8 +360,37 @@ struct OnBoarding6View: View {
         
         return String(format: "%02d:%02d", minutes, seconds)
     }
-   
     
+    func debugSpeechInfo() {
+        let wordCount = speechText.components(separatedBy: .whitespaces)
+            .filter { !$0.isEmpty }
+            .count
+        
+        let punctuationCount = speechText.unicodeScalars
+            .filter { CharacterSet(charactersIn: ",.!?").contains($0) }
+            .count
+        
+        print("Word count: \(wordCount)")
+        print("Punctuation count: \(punctuationCount)")
+        print("Calculated duration: \(totalTime) seconds")
+        print("Speech rate: \(AVSpeechUtteranceDefaultSpeechRate)")
+    }
+    
+    func cleanup() {
+        debugSpeechInfo()
+        stopTimer()
+        speechSynthesizer.stopSpeaking(at: .immediate)
+        
+        do {
+            try AVAudioSession.sharedInstance().setActive(false)
+        } catch {
+            print("Failed to deactivate audio session: \(error)")
+        }
+    }
+    
+    func onDisappear() {
+        cleanup()
+    }
 }
 
 #Preview {

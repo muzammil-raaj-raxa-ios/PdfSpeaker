@@ -40,7 +40,6 @@ struct OnBoarding2View: View {
                     Text("What’s your Profession🤗")
                         .font(.system(size: 28))
                         .fontWeight(.bold)
-                        .foregroundColor(.black)
                     
                     Text("Choose one:")
                         .font(.system(size: 16))
@@ -48,24 +47,27 @@ struct OnBoarding2View: View {
                         .foregroundColor(.onboardingGray)
                 }
                 
-                List(professions) { profession in
-                    HStack {
-                        Text(profession.name)
-                            .font(.system(size: 14))
-                            .fontWeight(.regular)
-                            .foregroundColor(Color.black)
+                if #available(iOS 16.0, *) {
+                    List(professions) { profession in
+                        HStack {
+                            Text(profession.name)
+                                .font(.system(size: 14))
+                                .fontWeight(.regular)
+                                .padding(.leading, 20)
+                        }
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                        .frame(height: 50)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(selectedProfession == profession ? Color.onboardingLightGreen : Color.onboardingCardGrey)
+                        .border(selectedProfession == profession ? Color.onboardingLightGreen : Color.onboardingCardGrey, width: 1)
+                        .cornerRadius(25)
+                        .onTapGesture {
+                            selectedProfession = profession
+                        }
                     }
-                    .listRowBackground(Color.white)
-                    .frame(height: 50)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(selectedProfession == profession ? Color.onboardingLightGreen : Color.clear)
-                    .border(selectedProfession == profession ? Color.onboardingLightGreen : Color.clear, width: 1)
-                    .cornerRadius(25)
-                    .onTapGesture {
-                        selectedProfession = profession
-                    }
+                    .scrollContentBackground(.hidden)
                 }
-                .scrollContentBackground(.hidden)
                 
                 NavigationLink(destination: OnBoarding3View(), isActive: $isNavigationTrue) {
                     EmptyView()
@@ -82,7 +84,7 @@ struct OnBoarding2View: View {
                     Text("Next")
                         .font(.system(size: 14))
                         .fontWeight(.medium)
-                        .foregroundColor(.white)
+                        .foregroundColor(.blackBtnText)
                         .frame(maxWidth: .infinity, maxHeight: 60)
                 }
                 .background(Color.blackBtn)
@@ -99,7 +101,6 @@ struct OnBoarding2View: View {
                 Spacer()
                 
             }
-            .background(.white)
             
         }
         .navigationBarBackButtonHidden()

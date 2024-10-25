@@ -30,20 +30,32 @@ struct OnBoarding3View: View {
                     Text("What’s your Name🥰")
                         .font(.system(size: 28))
                         .fontWeight(.bold)
-                        .foregroundColor(.black)
                     
                     Text("Enter your name:")
                         .font(.system(size: 16))
                         .fontWeight(.regular)
                         .foregroundColor(.onboardingGray)
                 }
+                .padding(.bottom, 20)
                 
-                TextField("Enter your name", text: $name)
-                    .font(.system(size: 14))
-                    .fontWeight(.medium)
-                    .padding(.leading, 40)
-                    .padding(.top, 20)
-                    .background(Color.white)
+                if #available(iOS 16.0, *) {
+                    TextField("Enter your name", text: $name)
+                        .font(.system(size: 14))
+                        .tint(.blackBtn)
+                        .fontWeight(.medium)
+                        .frame(height: 50)
+                        .padding(.horizontal)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 25)
+                                .stroke(Color.onboardingLightGreen, lineWidth: 2)
+                        )
+                        .padding()
+                        .onChange(of: name) { newValue in
+                            if newValue.count > 30 {
+                                name = String(newValue.prefix(30))
+                            }
+                        }
+                } 
                 
                 Spacer()
                 
@@ -53,7 +65,7 @@ struct OnBoarding3View: View {
                 .hidden()
                 
                 Button {
-                    if name.isEmpty {
+                    if name.trimmingCharacters(in: .whitespaces).count < 3 {
                         showAlert = true
                     } else {
                         isNavigationTrue = true
@@ -62,7 +74,7 @@ struct OnBoarding3View: View {
                     Text("Next")
                         .font(.system(size: 14))
                         .fontWeight(.medium)
-                        .foregroundColor(.white)
+                        .foregroundColor(.blackBtnText)
                         .frame(maxWidth: .infinity, maxHeight: 60)
                 }
                 .background(Color.blackBtn)
@@ -72,14 +84,13 @@ struct OnBoarding3View: View {
                 .alert(isPresented: $showAlert) {
                     Alert(
                         title: Text("PDF Speaker"),
-                        message: Text("Please select a profession."),
+                        message: Text("Please provide a valid name."),
                         dismissButton: .default(Text(("Ok")))
                     )
                 }
                 
                 
             }
-            .background(.white)
         }
         .navigationBarBackButtonHidden()
     }

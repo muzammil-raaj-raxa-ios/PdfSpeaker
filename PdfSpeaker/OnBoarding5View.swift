@@ -39,7 +39,6 @@ struct OnBoarding5View: View {
                     Text("What’s your Age🗓️")
                         .font(.system(size: 28))
                         .fontWeight(.bold)
-                        .foregroundColor(.black)
                     
                     Text("Choose One:")
                         .font(.system(size: 16))
@@ -47,28 +46,63 @@ struct OnBoarding5View: View {
                         .foregroundColor(.onboardingGray)
                 }
                 
-                List(ages) { age in
-                    HStack {
-                        Text(age.age)
-                            .font(.system(size: 14))
-                            .fontWeight(.regular)
-                            .foregroundColor(Color.black)
+                if #available(iOS 16.0, *) {
+                    List(ages) { age in
+                        HStack {
+                            Text(age.age)
+                                .font(.system(size: 14))
+                                .fontWeight(.regular)
+                                .foregroundColor(Color.blackBtn)
+                                .padding(.leading, 15)
+                        }
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                        .frame(height: 50)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(selectedAge == age ? Color.onboardingLightGreen : Color.onboardingCardGrey)
+                        .border(selectedAge == age ? Color.onboardingLightGreen : Color.onboardingCardGrey, width: 1)
+                        .cornerRadius(25)
+                        .onTapGesture {
+                            selectedAge = age
+                        }
                     }
-                    .listRowBackground(Color.white)
-                    .frame(height: 50)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(selectedAge == age ? Color.onboardingLightGreen : Color.clear)
-                    .border(selectedAge == age ? Color.onboardingLightGreen : Color.clear, width: 1)
-                    .cornerRadius(25)
-                    .onTapGesture {
-                        selectedAge = age
-                    }
+                    .scrollContentBackground(.hidden)
                 }
-                .scrollContentBackground(.hidden)
+                
+                NavigationLink(destination: OnBoarding6View(), isActive: $isNavigationTrue) {
+                    EmptyView()
+                }
+                .hidden()
+                
+                
+                Button {
+                    if selectedAge == nil {
+                        showAlert = true
+                    } else {
+                        isNavigationTrue = true
+                    }
+                } label: {
+                    Text("Next")
+                        .font(.system(size: 14))
+                        .fontWeight(.medium)
+                        .foregroundColor(.blackBtnText)
+                        .frame(maxWidth: .infinity, maxHeight: 60)
+                }
+                .background(Color.blackBtn)
+                .cornerRadius(30)
+                .padding(.bottom, 0)
+                .padding()
+                .alert(isPresented: $showAlert) {
+                    Alert(
+                        title: Text("PDF Speaker"),
+                        message: Text("Please select an age."),
+                        dismissButton: .default(Text(("Ok")))
+                    )
+                }
+                
                 
                 Spacer()
             }
-            .background(Color.white)
             
         }
         .navigationBarBackButtonHidden()

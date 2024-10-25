@@ -36,7 +36,6 @@ struct OnBoarding4View: View {
                     Text("Select your Gender👫")
                         .font(.system(size: 28))
                         .fontWeight(.bold)
-                        .foregroundColor(.black)
                     
                     Text("Choose One:")
                         .font(.system(size: 16))
@@ -44,24 +43,27 @@ struct OnBoarding4View: View {
                         .foregroundColor(.onboardingGray)
                 }
                 
-                List(genders) { gender in
-                    HStack {
-                        Text(gender.name)
-                            .font(.system(size: 14))
-                            .fontWeight(.regular)
-                            .foregroundColor(Color.black)
+                if #available(iOS 16.0, *) {
+                    List(genders) { gender in
+                        HStack {
+                            Text(gender.name)
+                                .font(.system(size: 16))
+                                .fontWeight(.regular)
+                                .padding(.leading, 15)
+                        }
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                        .frame(height: 50)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(selectedGender == gender ? Color.onboardingLightGreen : Color.onboardingCardGrey)
+                        .border(selectedGender == gender ? Color.onboardingLightGreen : Color.onboardingCardGrey, width: 1)
+                        .cornerRadius(25)
+                        .onTapGesture {
+                            selectedGender = gender
+                        }
                     }
-                    .listRowBackground(Color.white)
-                    .frame(height: 50)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(selectedGender == gender ? Color.onboardingLightGreen : Color.clear)
-                    .border(selectedGender == gender ? Color.onboardingLightGreen : Color.clear, width: 1)
-                    .cornerRadius(25)
-                    .onTapGesture {
-                        selectedGender = gender
-                    }
-                }
-                .scrollContentBackground(.hidden)
+                    .scrollContentBackground(.hidden)
+                } 
                 
                 NavigationLink(destination: OnBoarding5View(), isActive: $isNavigationTrue) {
                     EmptyView()
@@ -78,7 +80,7 @@ struct OnBoarding4View: View {
                     Text("Next")
                         .font(.system(size: 14))
                         .fontWeight(.medium)
-                        .foregroundColor(.white)
+                        .foregroundColor(.blackBtnText)
                         .frame(maxWidth: .infinity, maxHeight: 60)
                 }
                 .background(Color.blackBtn)
@@ -95,7 +97,6 @@ struct OnBoarding4View: View {
                 
                 Spacer()
             }
-            .background(Color.white)
         }
         .navigationBarBackButtonHidden()
     }

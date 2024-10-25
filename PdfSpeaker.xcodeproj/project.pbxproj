@@ -18,6 +18,11 @@
 		9A0289E62CC9221E00421EB6 /* GenderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0289E52CC9221E00421EB6 /* GenderModel.swift */; };
 		9A0289E82CC928C300421EB6 /* OnBoarding5View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0289E72CC928C300421EB6 /* OnBoarding5View.swift */; };
 		9A0289EA2CC929DA00421EB6 /* AgeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0289E92CC929DA00421EB6 /* AgeModel.swift */; };
+		9AA2EFE82CCA054300B1636B /* OnBoarding6View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA2EFE72CCA054300B1636B /* OnBoarding6View.swift */; };
+		9AA2EFEB2CCA65A200B1636B /* SpeechDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA2EFEA2CCA65A200B1636B /* SpeechDelegate.swift */; };
+		9AA2EFED2CCA66CF00B1636B /* TextHighlightedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA2EFEC2CCA66CF00B1636B /* TextHighlightedView.swift */; };
+		9AAA6B1A2CCB641C00420B09 /* SelectAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAA6B192CCB641C00420B09 /* SelectAvatarView.swift */; };
+		9AAA6B1C2CCB6F2900420B09 /* AvatarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAA6B1B2CCB6F2900420B09 /* AvatarModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +38,11 @@
 		9A0289E52CC9221E00421EB6 /* GenderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderModel.swift; sourceTree = "<group>"; };
 		9A0289E72CC928C300421EB6 /* OnBoarding5View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoarding5View.swift; sourceTree = "<group>"; };
 		9A0289E92CC929DA00421EB6 /* AgeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeModel.swift; sourceTree = "<group>"; };
+		9AA2EFE72CCA054300B1636B /* OnBoarding6View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoarding6View.swift; sourceTree = "<group>"; };
+		9AA2EFEA2CCA65A200B1636B /* SpeechDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechDelegate.swift; sourceTree = "<group>"; };
+		9AA2EFEC2CCA66CF00B1636B /* TextHighlightedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextHighlightedView.swift; sourceTree = "<group>"; };
+		9AAA6B192CCB641C00420B09 /* SelectAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAvatarView.swift; sourceTree = "<group>"; };
+		9AAA6B1B2CCB6F2900420B09 /* AvatarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,8 +89,9 @@
 				9A0289D42CC8DB5900421EB6 /* OnBoarding1View.swift */,
 				9A0289DB2CC8FFC500421EB6 /* OnBoarding2View.swift */,
 				9A0289E12CC912C000421EB6 /* OnBoarding3View.swift */,
-				9A0289E72CC928C300421EB6 /* OnBoarding5View.swift */,
 				9A0289E32CC920CA00421EB6 /* OnBoarding4View.swift */,
+				9A0289E72CC928C300421EB6 /* OnBoarding5View.swift */,
+				9AA2EFE92CCA658600B1636B /* OnBoardingSpeechView */,
 				9A0289DE2CC90F1800421EB6 /* Models */,
 			);
 			path = PdfSpeaker;
@@ -92,8 +103,20 @@
 				9A0289DF2CC90F2E00421EB6 /* ProfessionModel.swift */,
 				9A0289E52CC9221E00421EB6 /* GenderModel.swift */,
 				9A0289E92CC929DA00421EB6 /* AgeModel.swift */,
+				9AAA6B1B2CCB6F2900420B09 /* AvatarModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		9AA2EFE92CCA658600B1636B /* OnBoardingSpeechView */ = {
+			isa = PBXGroup;
+			children = (
+				9AA2EFE72CCA054300B1636B /* OnBoarding6View.swift */,
+				9AA2EFEA2CCA65A200B1636B /* SpeechDelegate.swift */,
+				9AA2EFEC2CCA66CF00B1636B /* TextHighlightedView.swift */,
+				9AAA6B192CCB641C00420B09 /* SelectAvatarView.swift */,
+			);
+			path = OnBoardingSpeechView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,14 +192,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AA2EFE82CCA054300B1636B /* OnBoarding6View.swift in Sources */,
 				9A0289DC2CC8FFC500421EB6 /* OnBoarding2View.swift in Sources */,
 				9A0289E22CC912C000421EB6 /* OnBoarding3View.swift in Sources */,
 				9A0289EA2CC929DA00421EB6 /* AgeModel.swift in Sources */,
 				9A0289E02CC90F2E00421EB6 /* ProfessionModel.swift in Sources */,
 				9A0289E82CC928C300421EB6 /* OnBoarding5View.swift in Sources */,
 				9A0289E42CC920CA00421EB6 /* OnBoarding4View.swift in Sources */,
+				9AA2EFEB2CCA65A200B1636B /* SpeechDelegate.swift in Sources */,
 				9A0289D72CC8DB5900421EB6 /* OnBoarding1View.swift in Sources */,
+				9AA2EFED2CCA66CF00B1636B /* TextHighlightedView.swift in Sources */,
+				9AAA6B1C2CCB6F2900420B09 /* AvatarModel.swift in Sources */,
 				9A0289D82CC8DB5900421EB6 /* PdfSpeakerApp.swift in Sources */,
+				9AAA6B1A2CCB641C00420B09 /* SelectAvatarView.swift in Sources */,
 				9A0289E62CC9221E00421EB6 /* GenderModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -319,6 +347,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -348,6 +377,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
