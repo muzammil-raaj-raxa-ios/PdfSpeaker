@@ -73,6 +73,7 @@ struct OnBoarding3View: View {
                         showAlert = true
                     } else {
                         isNavigationTrue = true
+                        UserDefaults.standard.set(name, forKey: "userName")
                     }
                 } label: {
                     Text("Next")

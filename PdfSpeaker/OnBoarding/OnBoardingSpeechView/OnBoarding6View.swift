@@ -12,7 +12,6 @@ struct OnBoarding6View: View {
     @StateObject private var speechDelegateWrapper = SpeechDelegateWrapper()
     @State private var avatarImage: UIImage = UIImage(named: "avatar1")!
     @State private var isNavigationTrue = false
-    @State private var showAlert = false
     @State private var progress = 0.0
     @State private var elapsedTime: Double = 0.0
     @State private var totalTime: Double = 0.0
@@ -200,10 +199,14 @@ struct OnBoarding6View: View {
                     .cornerRadius(12)
                     .padding()
                     
+                    NavigationLink(destination: TabBarView(), isActive: $isNavigationTrue) {
+                        EmptyView()
+                    }
+                    .hidden()
                     
                     // Next button
                     Button {
-                        
+                        isNavigationTrue = true
                     } label: {
                         Text("Next")
                             .font(.system(size: 14))
@@ -215,13 +218,8 @@ struct OnBoarding6View: View {
                     .cornerRadius(30)
                     .padding(.bottom, 0)
                     .padding()
-                    .alert(isPresented: $showAlert) {
-                        Alert(
-                            title: Text("PDF Speaker"),
-                            message: Text("Please select an age."),
-                            dismissButton: .default(Text(("Ok")))
-                        )
-                    }
+                    
+                    
                     Spacer()
                 }
             }
