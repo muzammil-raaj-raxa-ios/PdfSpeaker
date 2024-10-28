@@ -61,20 +61,28 @@ struct OnBoarding1View: View {
                     
                     // Welcome and Greeting text
                     VStack(spacing: 5) {
-                        Text("Welcome")
-                            .font(.system(size: 30))
-                            .fontWeight(.bold)
-                            .foregroundColor(.blackBtn) +
-                        
-                        Text(" to PDF")
-                            .font(.system(size: 20))
-                            .fontWeight(.bold)
-                            .foregroundColor(.blackBtn) +
-                        
-                        Text(" Speaker")
-                            .font(.system(size: 20))
-                            .fontWeight(.bold)
-                            .foregroundColor(.blackBtn)
+                        HStack {
+                            Text("Welcome")
+                                .font(.system(size: 30))
+                                .fontWeight(.bold)
+                                .foregroundColor(.blackBtn)
+                            
+                            Text(" to PDF")
+                                .font(.system(size: 20))
+                                .fontWeight(.bold)
+                                .foregroundColor(.blackBtn)
+                            
+                            Text(" Speaker")
+                                .font(.system(size: 20))
+                                .fontWeight(.bold)
+                                .foregroundColor(.blackBtn)
+                                .background(
+                                    Rectangle()
+                                        .fill(Color.onboardingLightGreen)
+                                        .cornerRadius(6)
+                                        .frame(width: 90, height: 30)
+                                )
+                        }
                         
                         Text("Read anything aloud in the highest\nquality voices.")
                             .font(.system(size: 16))

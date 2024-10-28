@@ -11,7 +11,7 @@ import SwiftUI
 struct PdfSpeakerApp: App {
     var body: some Scene {
         WindowGroup {
-            OnBoarding6View()
+            OnBoarding1View()
         }
     }
 }

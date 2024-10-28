@@ -145,7 +145,7 @@ struct OnBoarding6View: View {
                                     .frame(alignment: .leading)
                                     .sheet(isPresented: $isAvatarViewShowing) {
                                         SelectAvatarView(selectedAvatarImage: $avatarImage)
-                                            .presentationDetents([.height(470)])
+                                            .presentationDetents([.height(450)])
                                             .presentationDragIndicator(.visible)
                                             .cornerRadius(20)
                                     }
@@ -186,7 +186,7 @@ struct OnBoarding6View: View {
                                     .frame(alignment: .trailing)
                                     .sheet(isPresented: $isSpeedViewShowing) {
                                         SelectSpeedView()
-                                            .presentationDetents([.height(440)])
+                                            .presentationDetents([.height(470)])
                                             .presentationDragIndicator(.visible)
                                             .cornerRadius(20)
                                     }
