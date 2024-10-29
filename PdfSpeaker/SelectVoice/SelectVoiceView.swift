@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct SelectVoiceView: View {
-    @State private var selectedAvatarName: String = "Kathrine"
+    @Binding var selectedAvatarName: String
     @Binding var selectedAvatarImage: UIImage
     @Environment(\.dismiss) private var dismiss
+    
+    @State private var localSelectedName: String
+    @State private var localSelectedImage: UIImage
     
     let avatars: [AvatarModel] = [
         AvatarModel(image: UIImage(named: "avatar1")!, name: "Kathrine", description: "Hollywood Actress"),
@@ -20,6 +23,13 @@ struct SelectVoiceView: View {
         AvatarModel(image: UIImage(named: "avatar1")!, name: "Maeve", description: "Youtuber"),
         AvatarModel(image: UIImage(named: "avatar4")!, name: "Gina", description: "American Rapper"),
     ]
+    
+    init(selectedAvatarName: Binding<String>, selectedAvatarImage: Binding<UIImage>) {
+        _selectedAvatarName = selectedAvatarName
+        _selectedAvatarImage = selectedAvatarImage
+        _localSelectedName =  State(initialValue: selectedAvatarName.wrappedValue)
+        _localSelectedImage = State(initialValue: selectedAvatarImage.wrappedValue)
+    }
     
     var body: some View {
         VStack {
@@ -34,8 +44,8 @@ struct SelectVoiceView: View {
                 HStack(spacing: 25) {
                     ForEach(0..<3, id: \.self) { index in
                         Button {
-                            selectedAvatarName = avatars[index].name
-                            selectedAvatarImage = avatars[index].image
+                            localSelectedName = avatars[index].name
+                            localSelectedImage = avatars[index].image
                         } label: {
                             VStack {
                                 Image(uiImage: avatars[index].image)
@@ -44,7 +54,7 @@ struct SelectVoiceView: View {
                                     .clipShape(Circle())
                                     .background(
                                         Circle()
-                                            .fill(selectedAvatarName == avatars[index].name ? .onboardingLightGreen : Color.blackBtnText)
+                                            .fill(localSelectedName == avatars[index].name ? .onboardingLightGreen : Color.blackBtnText)
                                     )
                                 
                                 Text(avatars[index].name)
@@ -66,8 +76,8 @@ struct SelectVoiceView: View {
                 HStack(spacing: 25) {
                     ForEach(3..<6, id: \.self) { index in
                         Button {
-                            selectedAvatarName = avatars[index].name
-                            selectedAvatarImage = avatars[index].image
+                            localSelectedName = avatars[index].name
+                            localSelectedImage = avatars[index].image
                         } label: {
                             VStack {
                                 Image(uiImage: avatars[index].image)
@@ -76,7 +86,7 @@ struct SelectVoiceView: View {
                                     .clipShape(Circle())
                                     .background(
                                         Circle()
-                                            .fill(selectedAvatarName == avatars[index].name ? .onboardingLightGreen : Color.blackBtnText)
+                                            .fill(localSelectedName == avatars[index].name ? .onboardingLightGreen : Color.blackBtnText)
                                     )
                                 
                                 Text(avatars[index].name)
@@ -98,9 +108,11 @@ struct SelectVoiceView: View {
                 
                 // Continue button
                 Button {
+                    selectedAvatarName = localSelectedName
+                    selectedAvatarImage = localSelectedImage
                     dismiss()
                 } label: {
-                    Text("Continue with \(selectedAvatarName)")
+                    Text("Continue with \(localSelectedName)")
                         .font(.system(size: 14))
                         .fontWeight(.medium)
                         .foregroundColor(.blackBtnText)
@@ -122,5 +134,6 @@ struct SelectVoiceView: View {
 
 #Preview {
     @State var avatarImage = UIImage(named: "avatar1")!
-    return SelectVoiceView(selectedAvatarImage: $avatarImage)
+    @State var name = "Katherine"
+    return SelectVoiceView(selectedAvatarName: $name, selectedAvatarImage: $avatarImage)
 }

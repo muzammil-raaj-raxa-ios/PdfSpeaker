@@ -11,6 +11,7 @@ import AVFoundation
 struct OnBoarding6View: View {
     @StateObject private var speechDelegateWrapper = SpeechDelegateWrapper()
     @State private var avatarImage: UIImage = UIImage(named: "avatar1")!
+    @State private var avatarName: String = "Katherine"
     @State private var isNavigationTrue = false
     @State private var progress = 0.0
     @State private var elapsedTime: Double = 0.0
@@ -21,6 +22,7 @@ struct OnBoarding6View: View {
     @State private var currentWordIndex = -1
     @State private var isAvatarViewShowing: Bool = false
     @State private var isSpeedViewShowing: Bool = false
+    @State private var selectedVoiceSpeed: String = "1.0x"
     
     let speechSynthesizer = AVSpeechSynthesizer()
     
@@ -133,7 +135,7 @@ struct OnBoarding6View: View {
                                     }
                                     .frame(alignment: .leading)
                                     .sheet(isPresented: $isAvatarViewShowing) {
-                                        SelectVoiceView(selectedAvatarImage: $avatarImage)
+                                        SelectVoiceView(selectedAvatarName: $avatarName, selectedAvatarImage: $avatarImage)
                                             .presentationDetents([.height(450)])
                                             .presentationDragIndicator(.visible)
                                             .cornerRadius(20)
@@ -160,7 +162,7 @@ struct OnBoarding6View: View {
                                         isSpeedViewShowing = true
                                     } label: {
                                         VStack(spacing: 0) {
-                                            Text("1.0x")
+                                            Text(selectedVoiceSpeed)
                                                 .foregroundColor(.onboardingGray)
                                                 .font(.system(size: 8))
                                                 .fontWeight(.semibold)
@@ -174,7 +176,7 @@ struct OnBoarding6View: View {
                                     }
                                     .frame(alignment: .trailing)
                                     .sheet(isPresented: $isSpeedViewShowing) {
-                                        SelectSpeedView()
+                                        SelectSpeedView(selectedVoiceSpeed: $selectedVoiceSpeed)
                                             .presentationDetents([.height(470)])
                                             .presentationDragIndicator(.visible)
                                             .cornerRadius(20)

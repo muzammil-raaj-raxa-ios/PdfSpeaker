@@ -32,6 +32,9 @@
 		9AAA6B1A2CCB641C00420B09 /* SelectVoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAA6B192CCB641C00420B09 /* SelectVoiceView.swift */; };
 		9AAA6B1C2CCB6F2900420B09 /* AvatarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAA6B1B2CCB6F2900420B09 /* AvatarModel.swift */; };
 		9AAA6B1E2CCB9D4D00420B09 /* SelectSpeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAA6B1D2CCB9D4D00420B09 /* SelectSpeedView.swift */; };
+		9AC802772CD0F90300C24C9E /* AppThemeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC802762CD0F90300C24C9E /* AppThemeModel.swift */; };
+		9AC8027D2CD10A2500C24C9E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC8027B2CD10A2500C24C9E /* Constants.swift */; };
+		9AC8027F2CD10EDF00C24C9E /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC8027E2CD10EDF00C24C9E /* ThemeManager.swift */; };
 		9ACB22692CD0B3B1002F599A /* AppThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACB22672CD0B3B1002F599A /* AppThemeView.swift */; };
 		9ACB226F2CD0B3D6002F599A /* PremiumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACB226D2CD0B3D6002F599A /* PremiumView.swift */; };
 		9ACB22752CD0B4AA002F599A /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACB22732CD0B4AA002F599A /* FeedbackView.swift */; };
@@ -65,6 +68,9 @@
 		9AAA6B192CCB641C00420B09 /* SelectVoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectVoiceView.swift; sourceTree = "<group>"; };
 		9AAA6B1B2CCB6F2900420B09 /* AvatarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarModel.swift; sourceTree = "<group>"; };
 		9AAA6B1D2CCB9D4D00420B09 /* SelectSpeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSpeedView.swift; sourceTree = "<group>"; };
+		9AC802762CD0F90300C24C9E /* AppThemeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppThemeModel.swift; sourceTree = "<group>"; };
+		9AC8027B2CD10A2500C24C9E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		9AC8027E2CD10EDF00C24C9E /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		9ACB22672CD0B3B1002F599A /* AppThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppThemeView.swift; sourceTree = "<group>"; };
 		9ACB226D2CD0B3D6002F599A /* PremiumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumView.swift; sourceTree = "<group>"; };
 		9ACB22732CD0B4AA002F599A /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
@@ -121,6 +127,7 @@
 				9ACB226E2CD0B3D6002F599A /* Premium */,
 				9ACB22742CD0B4AA002F599A /* Feedback */,
 				9A0289DE2CC90F1800421EB6 /* Models */,
+				9AC8027C2CD10A2500C24C9E /* Constants */,
 				9A0289D32CC8DB5900421EB6 /* Assets.xcassets */,
 				9A0289D22CC8DB5900421EB6 /* Preview Content */,
 			);
@@ -137,6 +144,7 @@
 				9AA30A772CCF91BD000DF8D7 /* TabBarTabsModel.swift */,
 				9AA30A7C2CCFAB86000DF8D7 /* SettingModel.swift */,
 				9AF1A8FD2CD0BAF300C69B58 /* SettingSheet.swift */,
+				9AC802762CD0F90300C24C9E /* AppThemeModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -214,10 +222,19 @@
 			path = TabBar;
 			sourceTree = "<group>";
 		};
+		9AC8027C2CD10A2500C24C9E /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				9AC8027B2CD10A2500C24C9E /* Constants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
 		9ACB22682CD0B3B1002F599A /* AppTheme */ = {
 			isa = PBXGroup;
 			children = (
 				9ACB22672CD0B3B1002F599A /* AppThemeView.swift */,
+				9AC8027E2CD10EDF00C24C9E /* ThemeManager.swift */,
 			);
 			path = AppTheme;
 			sourceTree = "<group>";
@@ -316,16 +333,19 @@
 				9A0289DC2CC8FFC500421EB6 /* OnBoarding2View.swift in Sources */,
 				9A0289E22CC912C000421EB6 /* OnBoarding3View.swift in Sources */,
 				9ACB22692CD0B3B1002F599A /* AppThemeView.swift in Sources */,
+				9AC8027D2CD10A2500C24C9E /* Constants.swift in Sources */,
 				9A0289EA2CC929DA00421EB6 /* AgeModel.swift in Sources */,
 				9AA30A742CCF8D8E000DF8D7 /* SettingsView.swift in Sources */,
 				9A0289E02CC90F2E00421EB6 /* ProfessionModel.swift in Sources */,
 				9AA30A762CCF8D95000DF8D7 /* LibraryView.swift in Sources */,
 				9A0289E82CC928C300421EB6 /* OnBoarding5View.swift in Sources */,
 				9A0289E42CC920CA00421EB6 /* OnBoarding4View.swift in Sources */,
+				9AC802772CD0F90300C24C9E /* AppThemeModel.swift in Sources */,
 				9ACB22752CD0B4AA002F599A /* FeedbackView.swift in Sources */,
 				9AAA6B1E2CCB9D4D00420B09 /* SelectSpeedView.swift in Sources */,
 				9AA30A6F2CCF8CC7000DF8D7 /* HomeView.swift in Sources */,
 				9AA30A7B2CCF979C000DF8D7 /* TabBarView.swift in Sources */,
+				9AC8027F2CD10EDF00C24C9E /* ThemeManager.swift in Sources */,
 				9AF1A8FE2CD0BAF300C69B58 /* SettingSheet.swift in Sources */,
 				9AA30A782CCF91BD000DF8D7 /* TabBarTabsModel.swift in Sources */,
 				9AA2EFEB2CCA65A200B1636B /* SpeechDelegate.swift in Sources */,

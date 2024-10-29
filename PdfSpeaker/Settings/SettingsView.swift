@@ -12,12 +12,17 @@ struct SettingsView: View {
     @State private var selectedSheetView: SettingSheet? = nil
     @State private var avatarImage: UIImage = UIImage(named: "avatar1")!
     @State private var selectVoiceViewShowing: Bool = false
+    @State private var selectedVoice: String = "Emily"
+    @State private var selectedVoiceSpeed: String = "1.0 x"
+    @State private var selectedAppTheme: String = "Light"
     
-    let settingSectionOne: [SectionOneSettingModel] = [
-        SectionOneSettingModel(image: UIImage(named: "changeVoice")!, name: "Change Voice", more: "Emily"),
-        SectionOneSettingModel(image: UIImage(named: "voiceSpeed")!, name: "Voice Speed", more: "1.5x"),
-        SectionOneSettingModel(image: UIImage(named: "appTheme")!, name: "App Theme", more: "Light")
-    ]
+    private var settingSectionOne: [SectionOneSettingModel] {
+        [
+            SectionOneSettingModel(image: UIImage(named: "changeVoice")!, name: "Change Voice", more: selectedVoice),
+            SectionOneSettingModel(image: UIImage(named: "voiceSpeed")!, name: "Voice Speed", more: selectedVoiceSpeed),
+            SectionOneSettingModel(image: UIImage(named: "appTheme")!, name: "App Theme", more: selectedAppTheme)
+        ]
+    }
     
     let settingSectionTwo: [SectionTwoSettingModel] = [
         SectionTwoSettingModel(image: UIImage(named: "feedback")!, name: "Feedback"),
@@ -68,79 +73,79 @@ struct SettingsView: View {
                     
                     VStack(spacing: 0) {
                         // First List
-                            List {
-                                ForEach(settingSectionOne, id: \.self) { sectionOne in
-                                    Button {
-                                        selectedSheetView = destinationSheetView(for: sectionOne.name)
-                                    } label: {
-                                        HStack {
-                                            Image(uiImage: sectionOne.image)
-                                                .frame(width: 20, height: 20)
-                                            
-                                            Text(sectionOne.name)
-                                                .font(.system(size: 14))
-                                                .fontWeight(.medium)
+                        List {
+                            ForEach(settingSectionOne, id: \.self) { sectionOne in
+                                Button {
+                                    selectedSheetView = destinationSheetView(for: sectionOne.name)
+                                } label: {
+                                    HStack {
+                                        Image(uiImage: sectionOne.image)
+                                            .frame(width: 20, height: 20)
+                                        
+                                        Text(sectionOne.name)
+                                            .font(.system(size: 14))
+                                            .fontWeight(.medium)
+                                            .foregroundColor(.onboardingGray)
+                                        
+                                        Spacer()
+                                        
+                                        HStack(spacing: 0) {
+                                            Text(sectionOne.more)
+                                                .font(.system(size: 12))
+                                                .fontWeight(.regular)
                                                 .foregroundColor(.onboardingGray)
-                                            
-                                            Spacer()
-                                            
-                                            HStack(spacing: 0) {
-                                                Text(sectionOne.more)
-                                                    .font(.system(size: 12))
-                                                    .fontWeight(.regular)
-                                                    .foregroundColor(.onboardingGray)
-                                                
-                                                Image("goTo")
-                                                    .frame(width: 20, height: 20)
-                                            }
-                                        }
-                                    }
-                                    .sheet(item: $selectedSheetView) { item in
-                                        destinationSheetContent(for: item)
-                                            .presentationDragIndicator(.visible)
-                                            .cornerRadius(20)
-                                    }
-                                    
-                                }
-                                .listRowBackground(Color.onboardingCardGrey)
-                            }
-                            .background(Color.clear)
-                            .scrollContentBackground(.hidden)
-                            .frame(height: 170)
-                        
-                        
-                        // Second List
-                            List {
-                                ForEach(settingSectionTwo, id: \.self) { sectionTwo in
-                                    Button {
-                                        selectedView = sectionTwo.name
-                                    } label: {
-                                        HStack {
-                                            Image(uiImage: sectionTwo.image)
-                                                .frame(width: 20, height: 20)
-                                            
-                                            Text(sectionTwo.name)
-                                                .font(.system(size: 14))
-                                                .fontWeight(.medium)
-                                                .foregroundColor(.onboardingGray)
-                                            
-                                            Spacer()
                                             
                                             Image("goTo")
                                                 .frame(width: 20, height: 20)
-                                            
                                         }
                                     }
-                                    .background(
-                                        NavigationLink("", destination: destinationView(for: sectionTwo.name), tag: sectionTwo.name, selection: $selectedView)
-                                            .hidden()
-                                    )
                                 }
-                                .listRowBackground(Color.onboardingCardGrey)
+                                .sheet(item: $selectedSheetView) { item in
+                                    destinationSheetContent(for: item)
+                                        .presentationDragIndicator(.visible)
+                                        .cornerRadius(20)
+                                }
+                                
                             }
-                            .background(Color.clear)
-                            .scrollContentBackground(.hidden)
-                            .frame(height: 270)
+                            .listRowBackground(Color.onboardingCardGrey)
+                        }
+                        .background(Color.clear)
+                        .scrollContentBackground(.hidden)
+                        .frame(height: 170)
+                        
+                        
+                        // Second List
+                        List {
+                            ForEach(settingSectionTwo, id: \.self) { sectionTwo in
+                                Button {
+                                    selectedView = sectionTwo.name
+                                } label: {
+                                    HStack {
+                                        Image(uiImage: sectionTwo.image)
+                                            .frame(width: 20, height: 20)
+                                        
+                                        Text(sectionTwo.name)
+                                            .font(.system(size: 14))
+                                            .fontWeight(.medium)
+                                            .foregroundColor(.onboardingGray)
+                                        
+                                        Spacer()
+                                        
+                                        Image("goTo")
+                                            .frame(width: 20, height: 20)
+                                        
+                                    }
+                                }
+                                .background(
+                                    NavigationLink("", destination: destinationView(for: sectionTwo.name), tag: sectionTwo.name, selection: $selectedView)
+                                        .hidden()
+                                )
+                            }
+                            .listRowBackground(Color.onboardingCardGrey)
+                        }
+                        .background(Color.clear)
+                        .scrollContentBackground(.hidden)
+                        .frame(height: 270)
                         
                     }
                     
@@ -172,20 +177,21 @@ struct SettingsView: View {
         if #available(iOS 16.0, *) {
             switch sheet {
             case .changeVoice:
-                SelectVoiceView(selectedAvatarImage: $avatarImage)
+                SelectVoiceView(selectedAvatarName: $selectedVoice, selectedAvatarImage: $avatarImage)
                     .presentationDetents([.height(450)])
                 
             case .voiceSpeed:
-                SelectSpeedView()
+                SelectSpeedView(selectedVoiceSpeed: $selectedVoiceSpeed)
                     .presentationDetents([.height(470)])
             case .appTheme:
-                AppThemeView()
+                AppThemeView(selectedThemeName: $selectedAppTheme)
                     .presentationDetents([.height(350)])
             }
         }
     }
     
     @ViewBuilder
+    
     private func destinationView(for name: String) -> some View {
         switch name {
         case "Premium":
