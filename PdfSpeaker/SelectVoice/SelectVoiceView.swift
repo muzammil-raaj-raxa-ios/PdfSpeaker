@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SelectAvatarView: View {
+struct SelectVoiceView: View {
     @State private var selectedAvatarName: String = "Kathrine"
     @Binding var selectedAvatarImage: UIImage
     @Environment(\.dismiss) private var dismiss
@@ -122,5 +122,5 @@ struct SelectAvatarView: View {
 
 #Preview {
     @State var avatarImage = UIImage(named: "avatar1")!
-    return SelectAvatarView(selectedAvatarImage: $avatarImage)
+    return SelectVoiceView(selectedAvatarImage: $avatarImage)
 }

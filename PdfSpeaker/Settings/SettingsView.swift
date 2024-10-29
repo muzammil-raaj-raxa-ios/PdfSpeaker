@@ -8,112 +8,200 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @State private var selectedView: String? = nil
+    @State private var selectedSheetView: SettingSheet? = nil
+    @State private var avatarImage: UIImage = UIImage(named: "avatar1")!
+    @State private var selectVoiceViewShowing: Bool = false
     
-    let settings: [SettingModel] = [
-        SettingModel(image: UIImage(named: "changeVoice")!, name: "Change Voice", more: "Emily"),
-        SettingModel(image: UIImage(named: "voiceSpeed")!, name: "Voice Speed", more: "1.5x"),
-        SettingModel(image: UIImage(named: "appTheme")!, name: "App Theme", more: "Light"),
-        SettingModel(image: UIImage(named: "feedback")!, name: "Feedback", more: ""),
-        SettingModel(image: UIImage(named: "restorePurchase")!, name: "Restore Purchase", more: ""),
-        SettingModel(image: UIImage(named: "privacyPolicy")!, name: "Privacy Policy", more: ""),
-        SettingModel(image: UIImage(named: "termsOfService")!, name: "Terms of Service", more: ""),
-        SettingModel(image: UIImage(named: "communityGuidelines")!, name: "Community Guidelines", more: ""),
+    let settingSectionOne: [SectionOneSettingModel] = [
+        SectionOneSettingModel(image: UIImage(named: "changeVoice")!, name: "Change Voice", more: "Emily"),
+        SectionOneSettingModel(image: UIImage(named: "voiceSpeed")!, name: "Voice Speed", more: "1.5x"),
+        SectionOneSettingModel(image: UIImage(named: "appTheme")!, name: "App Theme", more: "Light")
+    ]
+    
+    let settingSectionTwo: [SectionTwoSettingModel] = [
+        SectionTwoSettingModel(image: UIImage(named: "feedback")!, name: "Feedback"),
+        SectionTwoSettingModel(image: UIImage(named: "restorePurchase")!, name: "Restore Purchase"),
+        SectionTwoSettingModel(image: UIImage(named: "privacyPolicy")!, name: "Privacy Policy"),
+        SectionTwoSettingModel(image: UIImage(named: "termsOfService")!, name: "Terms of Service"),
+        SectionTwoSettingModel(image: UIImage(named: "communityGuidelines")!, name: "Community Guidelines"),
     ]
     
     var body: some View {
-        VStack {
-            Text("Settings")
-                .font(.system(size: 20))
-                .fontWeight(.bold)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding()
-            
-                // premium Button
-                Button {
+        if #available(iOS 16.0, *) {
+            NavigationStack {
+                VStack {
+                    Text("Settings")
+                        .font(.system(size: 20))
+                        .fontWeight(.bold)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding()
                     
-                } label: {
-                    Image("diamond")
-                        .frame(width: 20, height: 20)
-                        .padding(.leading, 20)
                     
-                    Text("Get Premium")
-                        .font(.system(size: 16))
-                        .fontWeight(.medium)
-                        .foregroundColor(.onboardingDarkGreen)
-                        .frame(maxWidth: .infinity, maxHeight: 50 , alignment: .leading)
-                }
-                .background(Color.onboardingLightGreen)
-                .cornerRadius(30)
-                .padding(.horizontal)
-            
-
-                List {
-                    ForEach(settings.prefix(3).indices, id: \.self) { index in
-                        NavigationLink(destination: Text("Value")) {
-                            HStack {
-                                Image(uiImage: settings[index].image)
-                                    .frame(width: 20, height: 20)
-                                
-                                Text(settings[index].name)
-                                    .foregroundColor(.onboardingGray)
-                                    .font(.system(size: 14))
-                                    .fontWeight(.medium)
-                                
-                                Spacer()
-                                
-                                Text(settings[index].more)
-                                    .foregroundColor(.onboardingGray)
-                                    .font(.system(size: 14))
-                                    .fontWeight(.medium)
-                            }
-                            .frame(height: 50)
-                            .padding(.trailing, 0)
+                    // premium Button
+                    Button {
+                        selectedView = "Premium"
+                    } label: {
+                        HStack {
+                            Image("diamond")
+                                .frame(width: 20, height: 20)
+                                .padding(.leading, 20)
+                            
+                            Text("Get Premium")
+                                .font(.system(size: 16))
+                                .fontWeight(.medium)
+                                .foregroundColor(.onboardingDarkGreen)
+                                .padding(.leading, 8)
+                            
+                            Spacer()
                         }
-                        .padding(.horizontal)
-                        .listRowBackground(Color.clear)
-                        .background(Color.onboardingCardGrey)
-                        .listRowInsets(EdgeInsets())
+                        .frame(maxWidth: .infinity, minHeight: 50)
                     }
-                }
-                .frame(height: 150)
-                .listStyle(PlainListStyle())
-                .background(Color.clear)
-                .cornerRadius(25)
-                .padding(.horizontal)
-                .padding(.top, 20)
-                .navigationBarHidden(true)
-            
-            
-                List {
-                    ForEach(settings.dropFirst(3).indices, id: \.self) { index in
-                        NavigationLink(destination: Text("Value")) {
-                            HStack {
-                                Image(uiImage: settings[index].image)
-                                    .frame(width: 20, height: 20)
-                                
-                                Text(settings[index].name)
-                                    .foregroundColor(.onboardingGray)
-                                    .font(.system(size: 14))
-                                    .fontWeight(.medium)
+                    .background(Color.onboardingLightGreen)
+                    .cornerRadius(30)
+                    .padding(.horizontal)
+                    .background(
+                        NavigationLink("", destination: PremiumView(), tag: "Premium", selection: $selectedView)
+                            .hidden()
+                    )
+                    
+                    
+                    VStack(spacing: 0) {
+                        // First List
+                            List {
+                                ForEach(settingSectionOne, id: \.self) { sectionOne in
+                                    Button {
+                                        selectedSheetView = destinationSheetView(for: sectionOne.name)
+                                    } label: {
+                                        HStack {
+                                            Image(uiImage: sectionOne.image)
+                                                .frame(width: 20, height: 20)
+                                            
+                                            Text(sectionOne.name)
+                                                .font(.system(size: 14))
+                                                .fontWeight(.medium)
+                                                .foregroundColor(.onboardingGray)
+                                            
+                                            Spacer()
+                                            
+                                            HStack(spacing: 0) {
+                                                Text(sectionOne.more)
+                                                    .font(.system(size: 12))
+                                                    .fontWeight(.regular)
+                                                    .foregroundColor(.onboardingGray)
+                                                
+                                                Image("goTo")
+                                                    .frame(width: 20, height: 20)
+                                            }
+                                        }
+                                    }
+                                    .sheet(item: $selectedSheetView) { item in
+                                        destinationSheetContent(for: item)
+                                            .presentationDragIndicator(.visible)
+                                            .cornerRadius(20)
+                                    }
+                                    
+                                }
+                                .listRowBackground(Color.onboardingCardGrey)
                             }
-                            .frame(height: 50)
-                            .padding(.trailing, 0)
-                        }
-                        .padding(.horizontal)
-                        .listRowBackground(Color.clear)
-                        .background(Color.onboardingCardGrey)
-                        .listRowInsets(EdgeInsets())
+                            .background(Color.clear)
+                            .scrollContentBackground(.hidden)
+                            .frame(height: 170)
+                        
+                        
+                        // Second List
+                            List {
+                                ForEach(settingSectionTwo, id: \.self) { sectionTwo in
+                                    Button {
+                                        selectedView = sectionTwo.name
+                                    } label: {
+                                        HStack {
+                                            Image(uiImage: sectionTwo.image)
+                                                .frame(width: 20, height: 20)
+                                            
+                                            Text(sectionTwo.name)
+                                                .font(.system(size: 14))
+                                                .fontWeight(.medium)
+                                                .foregroundColor(.onboardingGray)
+                                            
+                                            Spacer()
+                                            
+                                            Image("goTo")
+                                                .frame(width: 20, height: 20)
+                                            
+                                        }
+                                    }
+                                    .background(
+                                        NavigationLink("", destination: destinationView(for: sectionTwo.name), tag: sectionTwo.name, selection: $selectedView)
+                                            .hidden()
+                                    )
+                                }
+                                .listRowBackground(Color.onboardingCardGrey)
+                            }
+                            .background(Color.clear)
+                            .scrollContentBackground(.hidden)
+                            .frame(height: 270)
+                        
                     }
+                    
+                    Spacer()
                 }
-                .frame(height: 250)
-                .listStyle(PlainListStyle())
-                .background(.clear)
-                .cornerRadius(25)
-                .padding(.horizontal)
-                .padding(.top, 20)
-                .navigationBarHidden(true)
-            
-            Spacer()
+            }
+        }
+    }
+    
+    
+    private func destinationSheetView(for name: String) -> SettingSheet? {
+        if #available(iOS 16.0, *) {
+            switch name {
+            case "Change Voice":
+                return .changeVoice
+            case "Voice Speed":
+                return .voiceSpeed
+            case "App Theme":
+                return .appTheme
+            default:
+                return nil
+            }
+        }
+        return nil
+    }
+    
+    @ViewBuilder
+    private func destinationSheetContent(for sheet: SettingSheet) -> some View {
+        if #available(iOS 16.0, *) {
+            switch sheet {
+            case .changeVoice:
+                SelectVoiceView(selectedAvatarImage: $avatarImage)
+                    .presentationDetents([.height(450)])
+                
+            case .voiceSpeed:
+                SelectSpeedView()
+                    .presentationDetents([.height(470)])
+            case .appTheme:
+                AppThemeView()
+                    .presentationDetents([.height(350)])
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func destinationView(for name: String) -> some View {
+        switch name {
+        case "Premium":
+            PremiumView()
+        case "Feedback":
+            FeedbackView()
+        case "Restore Purchase":
+            FeedbackView()
+        case "Privacy Policy":
+            FeedbackView()
+        case "Terms of Service":
+            FeedbackView()
+        case "Community Guidelines":
+            FeedbackView()
+        default:
+            EmptyView()
         }
     }
 }

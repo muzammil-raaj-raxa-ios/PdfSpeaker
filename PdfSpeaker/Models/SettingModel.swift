@@ -7,9 +7,16 @@
 
 import SwiftUI
 
-struct SettingModel: Identifiable {
+struct SectionOneSettingModel: Identifiable, Hashable {
     let id = UUID()
     let image: UIImage
     let name: String
     let more: String
+}
+
+
+struct SectionTwoSettingModel: Identifiable, Hashable {
+    let id = UUID()
+    let image: UIImage
+    let name: String
 }

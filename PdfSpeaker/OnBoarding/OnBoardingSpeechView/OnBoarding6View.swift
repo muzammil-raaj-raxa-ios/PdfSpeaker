@@ -39,16 +39,6 @@ struct OnBoarding6View: View {
         return elapsedTime >= totalTime
     }
     
-    // to chech and play sound even if device is muted
-    init() {
-        do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .spokenAudio, options: .mixWithOthers)
-            try AVAudioSession.sharedInstance().setActive(true)
-        } catch {
-            print("Failed to set audio session category: \(error)")
-        }
-    }
-    
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
@@ -143,7 +133,7 @@ struct OnBoarding6View: View {
                                     }
                                     .frame(alignment: .leading)
                                     .sheet(isPresented: $isAvatarViewShowing) {
-                                        SelectAvatarView(selectedAvatarImage: $avatarImage)
+                                        SelectVoiceView(selectedAvatarImage: $avatarImage)
                                             .presentationDetents([.height(450)])
                                             .presentationDragIndicator(.visible)
                                             .cornerRadius(20)
