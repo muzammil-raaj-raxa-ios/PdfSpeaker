@@ -10,6 +10,7 @@ import SwiftUI
 struct TabBarView: View {
     @State private var selectedTab = 1
     
+    
     let tabs: [TabBarTabsModel] = [
         TabBarTabsModel(tabImage: "text.page", selectedTabImage: "text.page.fill", tabTitle: "Library"),
         TabBarTabsModel(tabImage: "house", selectedTabImage: "house.fill", tabTitle: "Home"),
@@ -51,7 +52,7 @@ struct TabBarView: View {
                         }
                     }
                 }
-                
+
                 
             }
             .frame(width: 300, height: 60)
