@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TabBarView: View {
     @State private var selectedTab = 1
+    @EnvironmentObject var tabBarVisibility: TabBarVisibility
     
     let tabs: [TabBarTabsModel] = [
         TabBarTabsModel(tabImage: "text.page", selectedTabImage: "text.page.fill", tabTitle: "Library"),
@@ -33,31 +34,34 @@ struct TabBarView: View {
             
             Spacer()
             
-            HStack(alignment: .center, spacing: 60) {
-                
-                ForEach(0..<3, id: \.self) { tab in
-                    Button {
-                        selectedTab = tab
-                    } label: {
-                        VStack {
-                            Image(systemName: selectedTab == tab ? tabs[tab].selectedTabImage : tabs[tab].tabImage)
-                                .frame(width: 20, height: 20)
-                                .foregroundColor(selectedTab == tab ? .blackBtn : .onboardingGray)
-                            
-                            Text(tabs[tab].tabTitle)
-                                .font(.system(size: 10))
-                                .fontWeight(.regular)
-                                .foregroundColor(selectedTab == tab ? .blackBtn : .onboardingGray)
+            
+            if !tabBarVisibility.hideTabBar {
+                HStack(alignment: .center, spacing: 60) {
+                    
+                    ForEach(0..<3, id: \.self) { tab in
+                        Button {
+                            selectedTab = tab
+                        } label: {
+                            VStack {
+                                Image(systemName: selectedTab == tab ? tabs[tab].selectedTabImage : tabs[tab].tabImage)
+                                    .frame(width: 20, height: 20)
+                                    .foregroundColor(selectedTab == tab ? .blackBtn : .onboardingGray)
+                                
+                                Text(tabs[tab].tabTitle)
+                                    .font(.system(size: 10))
+                                    .fontWeight(.regular)
+                                    .foregroundColor(selectedTab == tab ? .blackBtn : .onboardingGray)
+                            }
                         }
                     }
+                    
+                    
                 }
-                
-                
+                .frame(width: 300, height: 60)
+                .background(Color.avatarBG)
+                .cornerRadius(30)
+                .padding()
             }
-            .frame(width: 300, height: 60)
-            .background(Color.avatarBG)
-            .cornerRadius(30)
-            .padding()
         }
         .navigationBarBackButtonHidden()
         
@@ -66,4 +70,5 @@ struct TabBarView: View {
 
 #Preview {
     TabBarView()
+        .environmentObject(TabBarVisibility())
 }

@@ -8,11 +8,24 @@
 import SwiftUI
 
 struct FeedbackButton: View {
+    let title: String
+    let isSelected: Bool
+    let action: () -> Void
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Button(action: action) {
+            Text(title)
+                .foregroundColor(isSelected ? .blackBtnText : .onboardingGray)
+                .font(.system(size: 12))
+                .fontWeight(.medium)
+                .padding()
+                .frame(width: 170, height: 50)
+                .background(isSelected ? .blackBtn : .onboardingCardGrey)
+                .cornerRadius(25)
+        }
     }
 }
 
 #Preview {
-    FeedbackButton()
+//    FeedbackButton()
 }

@@ -12,6 +12,7 @@ import AVFoundation
 struct PdfSpeakerApp: App {
     
     @StateObject private var themeManager = ThemeManager()
+    @StateObject private var tabBarVisibilityManager = TabBarVisibility()
     
     // to check and play sound even if device is muted
     init() {
@@ -25,9 +26,10 @@ struct PdfSpeakerApp: App {
     
     var body: some Scene {
         WindowGroup {
-//            TabBarView()
             OnBoarding1View()
+//            TabBarView()
                 .environmentObject(themeManager)
+                .environmentObject(tabBarVisibilityManager)
                 .preferredColorScheme(
                     themeManager.selectedTheme == .light ? .light : themeManager.selectedTheme == .dark ? .dark : nil
                 )

@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct RestorePurchaseVie: View {
+struct RestorePurchaseView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("Restore Purchase")
     }
 }
 
 #Preview {
-    RestorePurchaseVie()
+    RestorePurchaseView()
 }

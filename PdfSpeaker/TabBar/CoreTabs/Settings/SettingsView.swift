@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SettingsView: View {
     @State private var selectedView: String? = nil
-    //    @State private var selectedSheetView: Bool = false
     @State private var showSpeedSheet: Bool = false
     @State private var showThemeSheet: Bool = false
     @State private var showVoiceSheet: Bool = false
@@ -19,11 +18,13 @@ struct SettingsView: View {
     @State private var selectedVoiceSpeed: String = "1.0 x"
     @State private var selectedAppTheme: String = "Light"
     
+    @EnvironmentObject var tabBarVisiblity: TabBarVisibility
+    
     private var settingSectionOne: [SectionOneSettingModel] {
         [
             SectionOneSettingModel(image: UIImage(named: "changeVoice")!, name: "Change Voice", more: selectedVoice),
             SectionOneSettingModel(image: UIImage(named: "voiceSpeed")!, name: "Voice Speed", more: selectedVoiceSpeed),
-            SectionOneSettingModel(image: UIImage(named: "appTheme")!, name: "App Theme", more: selectedAppTheme)
+            SectionOneSettingModel(image: UIImage(named: "appTheme")!, name: "App Theme", more: selectedAppTheme.capitalized)
         ]
     }
     
@@ -39,16 +40,20 @@ struct SettingsView: View {
         if #available(iOS 16.0, *) {
             NavigationStack {
                 VStack {
-                    Text("Settings")
-                        .font(.system(size: 20))
-                        .fontWeight(.bold)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.horizontal)
-                        .padding(.top, 20)
+                    VStack {
+                        Text("Settings")
+                            .font(.system(size: 20))
+                            .fontWeight(.bold)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            
+                    }
+                    .padding(.horizontal)
+                    .padding(.top, 20)
                     
                     // premium Button
                     Button {
                         selectedView = "Premium"
+                        tabBarVisiblity.hideTabBar = true
                     } label: {
                         HStack {
                             Image("diamond")
@@ -149,6 +154,10 @@ struct SettingsView: View {
                     
                     Spacer()
                 }
+                .onAppear {
+                    tabBarVisiblity.hideTabBar = false
+                }
+                
                 .sheet(isPresented: $showVoiceSheet) {
                     SelectVoiceView(selectedAvatarName: $selectedVoice, selectedAvatarImage: $avatarImage)
                         .presentationDragIndicator(.visible)
@@ -162,10 +171,11 @@ struct SettingsView: View {
                 .sheet(isPresented: $showThemeSheet) {
                     AppThemeView(selectedThemeName: $selectedAppTheme)
                         .presentationDragIndicator(.visible)
-                        .presentationDetents([.height(350)])
+                        .presentationDetents([.height(370)])
                 }
 
             }
+            .navigationBarBackButtonHidden()
         }
     }
     
@@ -187,16 +197,34 @@ struct SettingsView: View {
         switch name {
         case "Premium":
             PremiumView()
+                .onAppear {
+                    tabBarVisiblity.hideTabBar = true
+                }
         case "Feedback":
             FeedbackView()
+                .onAppear {
+                    tabBarVisiblity.hideTabBar = true
+                }
         case "Restore Purchase":
-            FeedbackView()
+            RestorePurchaseView()
+                .onAppear {
+                    tabBarVisiblity.hideTabBar = true
+                }
         case "Privacy Policy":
-            FeedbackView()
+            PrivacyPolicyView()
+                .onAppear {
+                    tabBarVisiblity.hideTabBar = true
+                }
         case "Terms of Service":
-            FeedbackView()
+            TermsOfServiceView()
+                .onAppear {
+                    tabBarVisiblity.hideTabBar = true
+                }
         case "Community Guidelines":
-            FeedbackView()
+            CommunityGuidelinesView()
+                .onAppear {
+                    tabBarVisiblity.hideTabBar = true
+                }
         default:
             EmptyView()
         }
@@ -205,4 +233,5 @@ struct SettingsView: View {
 
 #Preview {
     SettingsView()
+        .environmentObject(TabBarVisibility())
 }

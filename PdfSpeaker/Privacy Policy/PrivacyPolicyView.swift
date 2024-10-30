@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct Privacy_Policy: View {
+struct PrivacyPolicyView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("Privacy policy view")
     }
 }
 
 #Preview {
-    Privacy_Policy()
+    PrivacyPolicyView()
 }

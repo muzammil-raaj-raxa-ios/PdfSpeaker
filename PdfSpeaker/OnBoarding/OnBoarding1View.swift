@@ -22,12 +22,12 @@ struct OnBoarding1View: View {
                 }
                 .overlay(
                     VStack {
-                        LinearGradient(gradient: Gradient(colors: [Color.white.opacity(1.0), Color.white.opacity(0.0)]), startPoint: .top, endPoint: .bottom)
+                        LinearGradient(gradient: Gradient(colors: [Color.blackBtnText.opacity(1.0), Color.blackBtnText.opacity(0.0)]), startPoint: .top, endPoint: .bottom)
                             .frame(height: 160)
                         
                         Spacer()
                         
-                        LinearGradient(gradient: Gradient(colors: [Color.white.opacity(0.0), Color.white.opacity(1.0)]), startPoint: .top, endPoint: .bottom)
+                        LinearGradient(gradient: Gradient(colors: [Color.blackBtnText.opacity(0.0), Color.blackBtnText.opacity(1.0)]), startPoint: .top, endPoint: .bottom)
                             .frame(height: 160)
                     }
                         .frame(maxHeight: 600)

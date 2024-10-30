@@ -54,6 +54,7 @@ struct AppThemeView: View {
                 
                 // Button styling
                 Button {
+                    selectedThemeName = selectedTheme.rawValue
                     dismiss()
                 } label: {
                     Text("Next")
