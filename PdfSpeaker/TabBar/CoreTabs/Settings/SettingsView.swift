@@ -161,7 +161,7 @@ struct SettingsView: View {
                 .sheet(isPresented: $showVoiceSheet) {
                     SelectVoiceView(selectedAvatarName: $selectedVoice, selectedAvatarImage: $avatarImage)
                         .presentationDragIndicator(.visible)
-                        .presentationDetents([.height(450)])
+                        .presentationDetents([.height(470)])
                 }
                 .sheet(isPresented: $showSpeedSheet) {
                     SelectSpeedView(selectedVoiceSpeed: $selectedVoiceSpeed)

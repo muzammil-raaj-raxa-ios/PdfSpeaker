@@ -9,6 +9,8 @@ import SwiftUI
 
 struct TabBarView: View {
     @State private var selectedTab = 1
+    @State private var isPlaying: Bool = false
+    
     @EnvironmentObject var tabBarVisibility: TabBarVisibility
     
     let tabs: [TabBarTabsModel] = [
@@ -36,6 +38,49 @@ struct TabBarView: View {
             
             
             if !tabBarVisibility.hideTabBar {
+                if isPlaying {
+                    HStack {
+                        Image("bottomPlayerImg")
+                            .frame(width: 30, height: 40)
+                            .padding(.leading, 25)
+                        
+                        VStack(alignment: .leading, spacing: 15) {
+                            Text("Speaker_file.pdf")
+                                .foregroundColor(.blackBtn)
+                                .font(.system(size: 12))
+                                .fontWeight(.medium)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            
+                            ProgressView(value: 0.7)
+                                .tint(.onboardingDarkGreen)
+                                .background(Color.onboardingLightGreen)
+                                .padding(.horizontal, 1)
+                                .frame(width: 140)
+                        }
+                        .padding(.leading, 15)
+                        
+                        
+                        
+                        Button {
+                            isPlaying.toggle()
+                        } label: {
+                            Image(systemName: isPlaying ? "play.circle" : "pause.circle")
+                                .frame(width: 30, height: 30)
+                                .foregroundColor(.onboardingDarkGreen)
+                                .padding(.trailing, 10)
+                        }
+                        
+                        
+                        
+                        Spacer()
+                    }
+                    .frame(width: 300 ,height: 60)
+                    .background(.onboardingLightGreen)
+                    .cornerRadius(20)
+                    .padding(.bottom, 0)
+                }
+                
+                
                 HStack(alignment: .center, spacing: 60) {
                     
                     ForEach(0..<3, id: \.self) { tab in
@@ -63,8 +108,9 @@ struct TabBarView: View {
                 .padding()
             }
         }
+        .background(Color.clear)
         .navigationBarBackButtonHidden()
-        
+        .ignoresSafeArea(.keyboard)
     }
 }
 

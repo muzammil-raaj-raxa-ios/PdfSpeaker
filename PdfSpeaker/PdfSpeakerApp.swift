@@ -26,8 +26,8 @@ struct PdfSpeakerApp: App {
     
     var body: some Scene {
         WindowGroup {
-            OnBoarding1View()
-//            TabBarView()
+//            OnBoarding1View()
+            TabBarView()
                 .environmentObject(themeManager)
                 .environmentObject(tabBarVisibilityManager)
                 .preferredColorScheme(

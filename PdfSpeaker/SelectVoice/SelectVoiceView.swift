@@ -32,101 +32,104 @@ struct SelectVoiceView: View {
     }
     
     var body: some View {
-        VStack {
-            Text("Select an AI Enhancer Voice")
-                .font(.system(size: 16))
-                .fontWeight(.semibold)
-                .padding()
-                .padding(.top, 20)
-            
-            // 2x3 grid layout button
-            VStack(spacing: 25) {
-                HStack(spacing: 25) {
-                    ForEach(0..<3, id: \.self) { index in
-                        Button {
-                            localSelectedName = avatars[index].name
-                            localSelectedImage = avatars[index].image
-                        } label: {
-                            VStack {
-                                Image(uiImage: avatars[index].image)
-                                    .resizable()
-                                    .frame(width: 80, height: 80)
-                                    .clipShape(Circle())
-                                    .background(
-                                        Circle()
-                                            .fill(localSelectedName == avatars[index].name ? .onboardingLightGreen : Color.blackBtnText)
-                                    )
+        if #available(iOS 16.0, *) {
+            VStack {
+                Text("Select an AI Enhancer Voice")
+                    .font(.system(size: 16))
+                    .fontWeight(.semibold)
+                    .padding()
+                    .padding(.top, 20)
+                
+                // 2x3 grid layout button
+                VStack(spacing: 25) {
+                    HStack(spacing: 25) {
+                        ForEach(0..<3, id: \.self) { index in
+                            Button {
+                                localSelectedName = avatars[index].name
+                                localSelectedImage = avatars[index].image
+                            } label: {
+                                VStack {
+                                    Image(uiImage: avatars[index].image)
+                                        .resizable()
+                                        .frame(width: 80, height: 80)
+                                        .clipShape(Circle())
+                                        .background(
+                                            Circle()
+                                                .fill(localSelectedName == avatars[index].name ? .onboardingLightGreen : Color.blackBtnText)
+                                        )
+                                    
+                                    Text(avatars[index].name)
+                                        .foregroundColor(Color.primary)
+                                        .font(.system(size: 12))
+                                        .fontWeight(.medium)
+                                    
+                                    Text(avatars[index].description)
+                                        .foregroundColor(.onboardingGray)
+                                        .font(.system(size: 10))
+                                        .fontWeight(.regular)
+                                }
                                 
-                                Text(avatars[index].name)
-                                    .foregroundColor(Color.primary)
-                                    .font(.system(size: 12))
-                                    .fontWeight(.medium)
-                                
-                                Text(avatars[index].description)
-                                    .foregroundColor(.onboardingGray)
-                                    .font(.system(size: 10))
-                                    .fontWeight(.regular)
                             }
                             
                         }
-                        
                     }
-                }
-                
-                HStack(spacing: 25) {
-                    ForEach(3..<6, id: \.self) { index in
-                        Button {
-                            localSelectedName = avatars[index].name
-                            localSelectedImage = avatars[index].image
-                        } label: {
-                            VStack {
-                                Image(uiImage: avatars[index].image)
-                                    .resizable()
-                                    .frame(width: 80, height: 80)
-                                    .clipShape(Circle())
-                                    .background(
-                                        Circle()
-                                            .fill(localSelectedName == avatars[index].name ? .onboardingLightGreen : Color.blackBtnText)
-                                    )
+                    
+                    HStack(spacing: 25) {
+                        ForEach(3..<6, id: \.self) { index in
+                            Button {
+                                localSelectedName = avatars[index].name
+                                localSelectedImage = avatars[index].image
+                            } label: {
+                                VStack {
+                                    Image(uiImage: avatars[index].image)
+                                        .resizable()
+                                        .frame(width: 80, height: 80)
+                                        .clipShape(Circle())
+                                        .background(
+                                            Circle()
+                                                .fill(localSelectedName == avatars[index].name ? .onboardingLightGreen : Color.blackBtnText)
+                                        )
+                                    
+                                    Text(avatars[index].name)
+                                        .foregroundColor(Color.primary)
+                                        .font(.system(size: 12))
+                                        .fontWeight(.medium)
+                                    
+                                    Text(avatars[index].description)
+                                        .foregroundColor(.onboardingGray)
+                                        .font(.system(size: 10))
+                                        .fontWeight(.regular)
+                                }
                                 
-                                Text(avatars[index].name)
-                                    .foregroundColor(Color.primary)
-                                    .font(.system(size: 12))
-                                    .fontWeight(.medium)
-                                
-                                Text(avatars[index].description)
-                                    .foregroundColor(.onboardingGray)
-                                    .font(.system(size: 10))
-                                    .fontWeight(.regular)
                             }
                             
                         }
-                        
                     }
+                    
+                    
+                    // Continue button
+                    Button {
+                        selectedAvatarName = localSelectedName
+                        selectedAvatarImage = localSelectedImage
+                        dismiss()
+                    } label: {
+                        Text("Continue with \(localSelectedName)")
+                            .font(.system(size: 14))
+                            .fontWeight(.medium)
+                            .foregroundColor(.blackBtnText)
+                            .frame(maxWidth: .infinity, maxHeight: 60)
+                    }
+                    .background(Color.blackBtn)
+                    .cornerRadius(30)
+                    .padding(.bottom, 0)
+                    .padding()
+                    
                 }
-                
-                
-                // Continue button
-                Button {
-                    selectedAvatarName = localSelectedName
-                    selectedAvatarImage = localSelectedImage
-                    dismiss()
-                } label: {
-                    Text("Continue with \(localSelectedName)")
-                        .font(.system(size: 14))
-                        .fontWeight(.medium)
-                        .foregroundColor(.blackBtnText)
-                        .frame(maxWidth: .infinity, maxHeight: 60)
-                }
-                .background(Color.blackBtn)
-                .cornerRadius(30)
-                .padding(.bottom, 0)
-                .padding()
-                
             }
-        }
-        .frame(maxWidth: .infinity)
-        .background(.avatarBG)
+            .frame(maxWidth: .infinity)
+            .background(.avatarBG)
+            .presentationDetents([.height(470)])
+        } 
         
         Spacer()
     }

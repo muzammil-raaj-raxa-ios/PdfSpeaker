@@ -73,7 +73,7 @@ struct AppThemeView: View {
             .preferredColorScheme(
                 selectedTheme == .light ? .light : selectedTheme == .dark ? .dark : nil
             )
-            .presentationDetents([.height(350)])
+            .presentationDetents([.height(370)])
         }
     }
     
