@@ -19,3 +19,11 @@ public var files: [LibraryListModel] = [
     LibraryListModel(image: UIImage(named: "scanText")!, name: "Scaext", date: "Oct 31", type: .scannedFile, duration: "10 s"),
     LibraryListModel(image: UIImage(named: "webLink")!, name: "Weinks", date: "Oct 31", type: .webLink, duration: "10 s"),
 ]
+
+func formatTime(_ seconds: Double) -> String {
+    let minutes = Int(seconds) / 60
+    let seconds = Int(seconds) % 60
+    
+    return String(format: "%02d:%02d", minutes, seconds)
+}
+

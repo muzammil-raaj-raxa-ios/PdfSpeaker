@@ -108,7 +108,7 @@ struct TabBarView: View {
                 .padding()
             }
         }
-        .background(Color.clear)
+        .background(.clear)
         .navigationBarBackButtonHidden()
         .ignoresSafeArea(.keyboard)
     }

@@ -11,6 +11,7 @@ struct OnBoarding3View: View {
     @State private var name: String = ""
     @State private var isNavigationTrue = false
     @State private var showAlert = false
+    @FocusState private var isNameTFfocused: Bool
     
     var body: some View {
         NavigationView {
@@ -47,6 +48,12 @@ struct OnBoarding3View: View {
                         .fontWeight(.medium)
                         .frame(height: 50)
                         .padding(.horizontal)
+                        .focused($isNameTFfocused)
+                        .autocorrectionDisabled()
+                        .autocapitalization(.words)
+                        .onAppear {
+                            isNameTFfocused = true
+                        }
                         .overlay(
                             RoundedRectangle(cornerRadius: 25)
                                 .stroke(Color.onboardingLightGreen, lineWidth: 2)
@@ -57,7 +64,7 @@ struct OnBoarding3View: View {
                                 name = String(newValue.prefix(30))
                             }
                         }
-                } 
+                }
                 
                 Spacer()
                 
@@ -88,7 +95,7 @@ struct OnBoarding3View: View {
                 .padding()
                 .alert(isPresented: $showAlert) {
                     Alert(
-                        title: Text("PDF Speaker"),
+                        title: Text("Ai PDF Speaker"),
                         message: Text("Please provide a valid name."),
                         dismissButton: .default(Text(("Ok")))
                     )

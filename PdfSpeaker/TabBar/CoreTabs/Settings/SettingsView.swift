@@ -48,7 +48,6 @@ struct SettingsView: View {
                             
                     }
                     .padding(.horizontal)
-                    .padding(.top, 20)
                     
                     // premium Button
                     Button {
@@ -154,6 +153,9 @@ struct SettingsView: View {
                     
                     Spacer()
                 }
+                .blur(radius: showThemeSheet ? 5 : 0)
+                .blur(radius: showSpeedSheet ? 5 : 0)
+                .blur(radius: showVoiceSheet ? 5 : 0)
                 .onAppear {
                     tabBarVisiblity.hideTabBar = false
                 }

@@ -44,6 +44,8 @@
 		9ACB22692CD0B3B1002F599A /* AppThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACB22672CD0B3B1002F599A /* AppThemeView.swift */; };
 		9ACB226F2CD0B3D6002F599A /* PremiumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACB226D2CD0B3D6002F599A /* PremiumView.swift */; };
 		9ACB22752CD0B4AA002F599A /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACB22732CD0B4AA002F599A /* FeedbackView.swift */; };
+		9AE2A0972CD4A48700633773 /* PdfView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE2A0952CD4A48700633773 /* PdfView.swift */; };
+		9AE2A0A02CD5052200633773 /* AddNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE2A09E2CD5052200633773 /* AddNotesView.swift */; };
 		9AF1A8FE2CD0BAF300C69B58 /* SettingSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1A8FD2CD0BAF300C69B58 /* SettingSheet.swift */; };
 		9AF4B9432CD2007D00DB1B10 /* TabBarVisibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF4B9422CD2007D00DB1B10 /* TabBarVisibility.swift */; };
 		9AF4B9452CD244B600DB1B10 /* FeedbackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF4B9442CD244B600DB1B10 /* FeedbackButton.swift */; };
@@ -92,6 +94,9 @@
 		9ACB22672CD0B3B1002F599A /* AppThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppThemeView.swift; sourceTree = "<group>"; };
 		9ACB226D2CD0B3D6002F599A /* PremiumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumView.swift; sourceTree = "<group>"; };
 		9ACB22732CD0B4AA002F599A /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
+		9AE2A0912CD4A2C900633773 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9AE2A0952CD4A48700633773 /* PdfView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PdfView.swift; sourceTree = "<group>"; };
+		9AE2A09E2CD5052200633773 /* AddNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNotesView.swift; sourceTree = "<group>"; };
 		9AF1A8FD2CD0BAF300C69B58 /* SettingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingSheet.swift; sourceTree = "<group>"; };
 		9AF4B9422CD2007D00DB1B10 /* TabBarVisibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVisibility.swift; sourceTree = "<group>"; };
 		9AF4B9442CD244B600DB1B10 /* FeedbackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackButton.swift; sourceTree = "<group>"; };
@@ -142,18 +147,22 @@
 				9A0289D52CC8DB5900421EB6 /* PdfSpeakerApp.swift */,
 				9AA30A642CCF73A0000DF8D7 /* OnBoarding */,
 				9AA30A7A2CCF979C000DF8D7 /* TabBar */,
+				9AE2A0962CD4A48700633773 /* PdfPickerView */,
 				9AA30A652CCF7408000DF8D7 /* SelectVoice */,
 				9AA30A612CCF6B13000DF8D7 /* SelectSpeed */,
 				9ACB22682CD0B3B1002F599A /* AppTheme */,
+				9AE2A09F2CD5052200633773 /* AddNotes */,
 				9ACB226E2CD0B3D6002F599A /* Premium */,
 				9ACB22742CD0B4AA002F599A /* Feedback */,
 				9AF4B94A2CD255EE00DB1B10 /* Restore Purchase */,
+				9AE2A09A2CD4F77600633773 /* TextHighlightedView */,
 				9AF4B94C2CD255FC00DB1B10 /* Terms of Service */,
 				9AF4B94B2CD255F100DB1B10 /* Privacy Policy */,
 				9AF4B94D2CD255FD00DB1B10 /* Community Guidelines */,
 				9A0289DE2CC90F1800421EB6 /* Models */,
 				9AC8027C2CD10A2500C24C9E /* Constants */,
 				9A0289D32CC8DB5900421EB6 /* Assets.xcassets */,
+				9AE2A0912CD4A2C900633773 /* Info.plist */,
 				9A0289D22CC8DB5900421EB6 /* Preview Content */,
 			);
 			path = PdfSpeaker;
@@ -181,7 +190,6 @@
 			children = (
 				9AA2EFE72CCA054300B1636B /* OnBoarding6View.swift */,
 				9AA2EFEA2CCA65A200B1636B /* SpeechDelegate.swift */,
-				9AA2EFEC2CCA66CF00B1636B /* TextHighlightedView.swift */,
 			);
 			path = OnBoardingSpeechView;
 			sourceTree = "<group>";
@@ -287,6 +295,30 @@
 				9AF4B9442CD244B600DB1B10 /* FeedbackButton.swift */,
 			);
 			path = Feedback;
+			sourceTree = "<group>";
+		};
+		9AE2A0962CD4A48700633773 /* PdfPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				9AE2A0952CD4A48700633773 /* PdfView.swift */,
+			);
+			path = PdfPickerView;
+			sourceTree = "<group>";
+		};
+		9AE2A09A2CD4F77600633773 /* TextHighlightedView */ = {
+			isa = PBXGroup;
+			children = (
+				9AA2EFEC2CCA66CF00B1636B /* TextHighlightedView.swift */,
+			);
+			path = TextHighlightedView;
+			sourceTree = "<group>";
+		};
+		9AE2A09F2CD5052200633773 /* AddNotes */ = {
+			isa = PBXGroup;
+			children = (
+				9AE2A09E2CD5052200633773 /* AddNotesView.swift */,
+			);
+			path = AddNotes;
 			sourceTree = "<group>";
 		};
 		9AF4B9412CD1F7CA00DB1B10 /* CoreTabs */ = {
@@ -408,6 +440,7 @@
 				9AA2EFE82CCA054300B1636B /* OnBoarding6View.swift in Sources */,
 				9AB6F4572CD369A600331B40 /* LibraryListModel.swift in Sources */,
 				9A0289DC2CC8FFC500421EB6 /* OnBoarding2View.swift in Sources */,
+				9AE2A0972CD4A48700633773 /* PdfView.swift in Sources */,
 				9AF4B9512CD2563C00DB1B10 /* TermsOfServiceView.swift in Sources */,
 				9A0289E22CC912C000421EB6 /* OnBoarding3View.swift in Sources */,
 				9AF4B9532CD2565000DB1B10 /* PrivacyPolicyView.swift in Sources */,
@@ -417,6 +450,7 @@
 				9A0289EA2CC929DA00421EB6 /* AgeModel.swift in Sources */,
 				9AA30A742CCF8D8E000DF8D7 /* SettingsView.swift in Sources */,
 				9A0289E02CC90F2E00421EB6 /* ProfessionModel.swift in Sources */,
+				9AE2A0A02CD5052200633773 /* AddNotesView.swift in Sources */,
 				9AA30A762CCF8D95000DF8D7 /* LibraryView.swift in Sources */,
 				9AB6F45B2CD39A2600331B40 /* SelectFileView.swift in Sources */,
 				9AF4B94F2CD2561E00DB1B10 /* RestorePurchaseView.swift in Sources */,
@@ -582,6 +616,7 @@
 				DEVELOPMENT_TEAM = 3KK47393S5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PdfSpeaker/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -612,6 +647,7 @@
 				DEVELOPMENT_TEAM = 3KK47393S5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PdfSpeaker/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

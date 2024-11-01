@@ -117,6 +117,11 @@ struct OnBoarding6View: View {
                                 // Select avatar
                                 if #available(iOS 16.0, *) {
                                     Button {
+                                        if speechSynthesizer.isSpeaking {
+                                            speechSynthesizer.pauseSpeaking(at: .immediate)
+                                            isSpeaking = false
+                                            stopTimer()
+                                        }
                                         isAvatarViewShowing.toggle()
                                     } label: {
                                         VStack(spacing: 0) {
@@ -159,6 +164,12 @@ struct OnBoarding6View: View {
                                 // select speed button
                                 if #available(iOS 16.0, *) {
                                     Button {
+                                        if speechSynthesizer.isSpeaking {
+                                            speechSynthesizer.pauseSpeaking(at: .immediate)
+                                            isSpeaking = false
+                                            stopTimer()
+                                        }
+                                        
                                         isSpeedViewShowing = true
                                     } label: {
                                         VStack(spacing: 0) {
@@ -214,6 +225,8 @@ struct OnBoarding6View: View {
                     
                     Spacer()
                 }
+                .blur(radius: isAvatarViewShowing ? 5 : 0)
+                .blur(radius: isSpeedViewShowing ? 5 : 0)
             }
             .onAppear {
                 words = preprocessText(speechText)
@@ -351,7 +364,7 @@ extension OnBoarding6View {
                 
                 // Debug timing information
                 if Int(self.elapsedTime * 10) % 50 == 0 { // Print every 5 seconds
-                    print("Debug: Current progress - Elapsed: \(self.formatTime(self.elapsedTime)), Total: \(self.formatTime(self.totalTime)), Progress: \(self.progress)")
+                    print("Debug: Current progress - Elapsed: \(formatTime(self.elapsedTime)), Total: \(formatTime(self.totalTime)), Progress: \(self.progress)")
                 }
             } else {
                 self.stopTimer()
@@ -363,13 +376,6 @@ extension OnBoarding6View {
     func stopTimer() {
         timer?.invalidate()
         timer = nil
-    }
-    
-    func formatTime(_ seconds: Double) -> String {
-        let minutes = Int(seconds) / 60
-        let seconds = Int(seconds) % 60
-        
-        return String(format: "%02d:%02d", minutes, seconds)
     }
     
     func debugSpeechInfo() {

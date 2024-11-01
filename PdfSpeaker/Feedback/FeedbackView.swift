@@ -47,6 +47,7 @@ struct FeedbackView: View {
             VStack(spacing: 0) {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack {
+                        // TOP nav bar
                         HStack {
                             Button {
                                 popView.wrappedValue.dismiss()

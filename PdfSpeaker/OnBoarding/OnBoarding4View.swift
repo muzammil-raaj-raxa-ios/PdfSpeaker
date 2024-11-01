@@ -93,7 +93,7 @@ struct OnBoarding4View: View {
                 .padding()
                 .alert(isPresented: $showAlert) {
                     Alert(
-                        title: Text("PDF Speaker"),
+                        title: Text("Ai PDF Speaker"),
                         message: Text("Please select a gender."),
                         dismissButton: .default(Text(("Ok")))
                     )

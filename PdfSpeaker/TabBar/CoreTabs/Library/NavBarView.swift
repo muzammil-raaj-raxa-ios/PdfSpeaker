@@ -93,6 +93,7 @@ struct NavBarView: View {
                                         TextField("", text: $searchText)
                                             .foregroundColor(.blackBtn)
                                             .tint(.onboardingGray)
+                                            .autocorrectionDisabled()
                                             .font(.system(size: 15))
                                             .fontWeight(.regular)
                                             .padding(.horizontal, 15)

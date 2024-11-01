@@ -97,7 +97,7 @@ struct OnBoarding5View: View {
                 .padding()
                 .alert(isPresented: $showAlert) {
                     Alert(
-                        title: Text("PDF Speaker"),
+                        title: Text("Ai PDF Speaker"),
                         message: Text("Please select an age."),
                         dismissButton: .default(Text(("Ok")))
                     )
